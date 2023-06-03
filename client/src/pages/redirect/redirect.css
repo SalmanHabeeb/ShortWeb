@@ -1,0 +1,43 @@
+#Redirect {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: black;
+}
+
+.redirect-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 200px;
+}
+
+.helper-button {
+    padding: 10px 20px;
+    background-color: dodgerblue;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.redirect-button {
+    background-color: dodgerblue;
+}
+
+.redirect-button:hover {
+    background-color: deepskyblue;
+}
+
+.cancel-button {
+    background-color: red;
+}
+
+.cancel-button:hover {
+    background-color: pink;
+}

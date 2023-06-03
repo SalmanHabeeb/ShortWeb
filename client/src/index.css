@@ -9,6 +9,7 @@ body {
   /* Add code here */
   overflow: hidden;
   background-color: black;
+  color: white;
 }
 
 code {

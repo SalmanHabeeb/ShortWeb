@@ -5,7 +5,8 @@ module.exports = {
     allowedDomains: (
         process.env.NODE_ENV === "production"? [
             process.env.REMOTE_CLIENT_APP,
-            process.env.REMOTE_SERVER_API
+            process.env.REMOTE_SERVER_API,
+            process.env.LOCAL_MONGO_URL
         ]: [
             process.env.LOCAL_CLIENT_APP,
             process.env.LOCAL_SERVER_API
