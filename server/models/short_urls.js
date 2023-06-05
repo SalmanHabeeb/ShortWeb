@@ -15,6 +15,11 @@ const shortURLSchema =  new mongoose.Schema({
         required: true,
         default: 0,
     },
+    isSafe: {
+        type: Boolean,
+        required: true,
+        default: true,
+    },
 })
 
 module.exports = mongoose.model('urlDatabase', shortURLSchema);

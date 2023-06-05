@@ -1,0 +1,11 @@
+.title .first {
+    font-size: 60px;
+    color: rgb(28, 67, 240);
+    font-weight: bolder;
+}
+
+.title .second {
+    font-size: 60px;
+    color: white;
+    font-weight: bolder;
+}

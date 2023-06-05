@@ -2,7 +2,8 @@
     width: 100vw;
     height: 100vh;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-evenly;
     align-items: center;
 }
 
@@ -14,6 +15,7 @@
     font-size: 16px;
     outline: none;
     transition: border-color 0.3s ease-in-out;
+    width: 350px;
 }
   
 .url-input:focus {
@@ -22,7 +24,7 @@
   
 .submit-button {
     padding: 10px 20px;
-    background-color: dodgerblue;
+    background-color: rgb(3, 170, 31);;
     color: white;
     border: none;
     border-radius: 4px;
@@ -32,6 +34,85 @@
 }
   
 .submit-button:hover {
-    background-color: deepskyblue;
+    background-color: rgb(0, 255, 42);
+    color: black;
+}
+
+.url-container {
+    display: flex;
+}
+
+.data {
+    display: flex;
+    flex-direction: column;
+    height: 350px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    padding-right: 7px;
+}
+
+.data .data-url {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-around;
+    width: 500px;
+    height: 50px;
+    line-height: 50px;
+    background-color: rgba(26, 25, 25, 0.836);
+    border-radius: 3px;
+}
+
+.data .long-url {
+    width: 225px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.data .short-url {
+    width: 225px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.data .copy-button {
+    width: 60px;
+    height: 40px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.data .copy-button i {
+    font-size: 16px;
+    color: gray;
+}
+
+.data .copy-button:hover i {
+    color: black;
+}
+
+.data span {
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    padding: 5px;
+    border-radius: 5px;
+    height: 10px;
+    width: 70px;
+    font-size: 10px;
+    position: absolute;
+    margin-bottom: 100px;
+    margin-left: 550px;
+    /* Set the z-index property to a high value to make the span element appear above other elements */
+    z-index: 999;
+    overflow: hidden;
+    text-overflow: clip;
+    line-height: 10px;
 }
   
+.data span:hover {
+    background-color: darkgreen;
+}

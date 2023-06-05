@@ -8,11 +8,19 @@
     background-color: black;
 }
 
+.redirect-text-box {
+    width: 400px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 .redirect-buttons {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     width: 200px;
+    height: 350px;
 }
 
 .helper-button {
@@ -26,12 +34,16 @@
     transition: background-color 0.3s ease-in-out;
 }
 
+.helper-button:hover {
+    color: black;
+}
+
 .redirect-button {
-    background-color: dodgerblue;
+    background-color: rgb(3, 170, 31);
 }
 
 .redirect-button:hover {
-    background-color: deepskyblue;
+    background-color: rgb(0, 255, 42);
 }
 
 .cancel-button {
@@ -39,5 +51,5 @@
 }
 
 .cancel-button:hover {
-    background-color: pink;
+    background-color: rgb(245, 65, 65);
 }
