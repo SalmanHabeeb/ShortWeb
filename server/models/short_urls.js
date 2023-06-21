@@ -86,7 +86,7 @@ shortURLSchema.pre("save", async function () {
 
 shortURLSchema.pre("save", function (next) {
   if (this.isModified("clicks.count")) {
-    this.clicks.timeStamps.push(Date.now()); // Append the current timestamp to the timeStamps array
+    this.clicks.timeStamps.push(Date.now());
   }
   next();
 });

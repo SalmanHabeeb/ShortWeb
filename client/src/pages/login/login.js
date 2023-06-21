@@ -18,22 +18,18 @@ function LoginPage() {
     setPassword(e.target.value);
   }
 
-  // handle the login error by showing an alert or a message
   function handleLoginError() {
     alert("Something went wrong. Please try again later.");
   }
 
-  // handle the invalid email error by showing an alert or a message
   function handleInvalidEmail() {
     alert("This email is not valid. Please enter a valid email address.");
   }
 
-  // handle the invalid password error by showing an alert or a message
   function handleInvalidPassword() {
     alert("This password is not valid. Please enter the correct password.");
   }
 
-  // handle the user not exists error by showing an alert or a message
   function handleUserNotExists() {
     alert(
       "This email is not registered. Please sign up or use a different email."
@@ -112,9 +108,7 @@ function LoginPage() {
               required
               onChange={handlePasswordChange}
               onKeyDown={(e) => {
-                // Check if the key is Enter
                 if (e.keyCode === 13) {
-                  // Perform the search
                   handleSubmit(email, password);
                 }
               }}

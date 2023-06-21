@@ -8,7 +8,6 @@ import { isLoggedIn } from "../../general/utils/utils";
 function LandingPage() {
   isLoggedIn().then((data) => console.log(data));
   const [url, setUrl] = useState("");
-  // Use array destructuring to get urlObjects and setUrlObjects
   const [urlObjects, setUrlObjects] = useState([]);
   const urlContainer = useRef(false);
   const [copied, setCopied] = useState(-1);
@@ -17,7 +16,6 @@ function LandingPage() {
 
   useEffect(() => {
     return () => {
-      // Clear the timeout if it exists
       if (timeoutId.current) {
         clearTimeout(timeoutId.current);
       }
@@ -79,9 +77,7 @@ function LandingPage() {
           value={url}
           onChange={(e) => setUrl(e.target.value)}
           onKeyDown={(e) => {
-            // Check if the key is Enter
             if (e.keyCode === 13) {
-              // Perform the search
               handleSubmit();
             }
           }}

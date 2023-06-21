@@ -18,24 +18,17 @@ function SearchPage() {
 
   const [searchResults, setSearchResults] = useState([]);
 
-  // define a function that handles the outside click
   function handleOutsideClick(event) {
-    // check if the click target is outside the element
     if (
       suggestBoxRef.current &&
       !suggestBoxRef.current.contains(event.target)
     ) {
-      // do something when the outside click happens, such as closing the suggestions
       setShowSearchSuggestion(false);
-      // console.log("Outside click");
     }
   }
 
-  // use useEffect to add and remove the event listener for outside click
   useEffect(() => {
-    // add the event listener when the component mounts
     document.addEventListener("click", handleOutsideClick);
-    // return a cleanup function that removes the event listener when the component unmounts
     return () => {
       document.removeEventListener("click", handleOutsideClick);
     };
@@ -78,7 +71,6 @@ function SearchPage() {
       query: e.target.value,
       field: field,
     });
-    // console.log(suggestionData);
     setSuggestionList(suggestionData.data.suggestions);
   }
 
@@ -92,7 +84,6 @@ function SearchPage() {
       field: field,
     });
     setSearchResults(searchResultData.data.suggestions);
-    // console.log(searchResultData.data, searchResultData.error);
     setSearching(false);
   }
 
@@ -112,15 +103,10 @@ function SearchPage() {
                 handleSearchTextChange(e);
               }}
               onKeyDown={(e) => {
-                console.log(suggestFocus);
-                // Check if the key is Enter
                 if (e.keyCode === 13) {
-                  // Perform the search
                   handleSearch(searchItem);
                 }
-                // Check if the key is ArrowDown
                 if (e.keyCode === 40) {
-                  // Move the focus to the first suggestion
                   setSuggestFocus(0);
                 }
               }}
@@ -128,14 +114,10 @@ function SearchPage() {
             />
             <div className="search-suggestions" ref={suggestBoxRef}>
               {suggestionList.map((item, idx) => {
-                // Split the item by the query
                 const parts = item.split(new RegExp(`(${searchItem})`, "gi"));
-                // console.log(parts);
                 let limit = 37;
                 if (window.matchMedia("(max-width: 600px)").matches) {
-                  // If the screen is 600px or less, set the limit to 25
                   limit = 20;
-                  // console.log("limit", limit);
                 }
                 if (parts[0].length >= limit) {
                   parts[0] = parts[0].slice(0, limit - 6);
@@ -150,29 +132,21 @@ function SearchPage() {
                     onClick={() => handleSearch(item)}
                     onKeyDown={(e) => {
                       console.log(suggestFocus);
-                      // Check if the key is Enter
                       if (e.keyCode === 13) {
-                        // Perform the search
                         handleSearch(item);
                       }
-                      // Check if the key is ArrowDown
                       if (e.keyCode === 40) {
-                        // Move the focus to the first suggestion
                         setSuggestFocus(idx + 1);
                       }
                       if (e.keyCode === 38) {
-                        // Move the focus to the first suggestion
                         setSuggestFocus(idx - 1);
                       }
                     }}
                   >
-                    {/* Loop through the parts and render them with different styles */}
                     {parts.map((part, i) => {
-                      // Check if the part matches the query
                       const match =
                         searchItem &&
                         part.toLowerCase() === searchItem.toLowerCase();
-                      // Return a span element with a highlight style if it matches, or plain text if it doesn't
                       return match ? (
                         <span
                           style={{ backgroundColor: "yellow", padding: "2px" }}
@@ -258,7 +232,6 @@ function SearchPage() {
           </label>
         </div>
         <div className="search-results-container">
-          {/* Use a map function to render each search result as a component */}
           {searchResults.map((result) => (
             <SearchResult {...result} />
           ))}

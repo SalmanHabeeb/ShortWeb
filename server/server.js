@@ -41,23 +41,17 @@ app.use(express.json());
 app.use(cookieParser());
 
 function deleteExpiredTokens() {
-  // Get the current date
   const currentDate = new Date();
-  // Loop through all the users
   User.find({}, (err, users) => {
     if (err) {
       console.error(err);
     } else {
-      // For each user, loop through their tokens array
       users.forEach((user) => {
         user.tokens.forEach((token) => {
-          // Check if the token's createdAt date is more than 30 days ago
           if (currentDate - token.createdAt > 30 * 24 * 60 * 60 * 1000) {
-            // If yes, remove the token from the array
             user.tokens.pull(token);
           }
         });
-        // Save the user
         user.save();
       });
     }
@@ -105,18 +99,14 @@ app.get("/api/getMappedURL", async (req, res) => {
     try {
       let location = await utils.location.getLocation(address);
       if (!location.error) {
-        // Find an element in the array that matches the user's countryCode and regionCode
         let index = shortUrl.clicks.locations.findIndex(
           (regionData) =>
             regionData.countryCode === location.countryCode &&
             regionData.regionCode === location.regionCode
         );
-        // If found, increment its count by one
         if (index !== -1) {
           shortUrl.clicks.locations[index].count++;
-        }
-        // If not found, push a new element with count set to one
-        else if (location.countryCode != "") {
+        } else if (location.countryCode != "") {
           shortUrl.clicks.locations.push({
             countryCode: location.countryCode,
             regionCode: location.regionCode,
@@ -253,13 +243,12 @@ app.post("/api/signup", async (req, res) => {
     await user.save();
     if (!tokenData.error) {
       res.cookie("token", tokenData.token, {
-        maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days in milliseconds
-        httpOnly: true, // prevent client-side access
-        secure: true, // only send over https
-        sameSite: "strict", // prevent cross-site requests
+        maxAge: 30 * 24 * 60 * 60 * 1000,
+        httpOnly: true,
+        secure: true,
+        sameSite: "strict",
       });
 
-      // Send a success response
       return res.send({ isLoggedIn: "true" });
     } else {
       return res.json({ isLoggedIn: null, serverError: true });
@@ -274,18 +263,7 @@ app.post("/api/login", async (req, res) => {
   try {
     const { email, password } = req.body.params;
     console.log(req.body);
-    // console.log(email, password);
-    // const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    // const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
-    // const validEmail = emailPattern.test(email);
-    // const validPassword = passwordPattern.test(password);
-    // if (!validEmail || !validPassword) {
-    //   return res.json({
-    //     isLoggedIn: null,
-    //     invalidEmail: !validEmail,
-    //     invalidPassword: !validPassword,
-    //   });
-    // }
+
     let user = await User.findOne({ email: email });
     if (user === null) {
       return res.json({ isLoggedIn: null, userNotExists: true });
@@ -297,13 +275,12 @@ app.post("/api/login", async (req, res) => {
       await user.save();
       if (!tokenData.error) {
         res.cookie("token", tokenData.token, {
-          maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days in milliseconds
-          httpOnly: true, // prevent client-side access
-          secure: true, // only send over https
-          sameSite: "strict", // prevent cross-site requests
+          maxAge: 30 * 24 * 60 * 60 * 1000,
+          httpOnly: true,
+          secure: true,
+          sameSite: "strict",
         });
 
-        // Send a success response
         return res.send({ isLoggedIn: "true" });
       } else {
         return res.json({ isLoggedIn: null, serverError: true });
@@ -350,39 +327,29 @@ app.get("/api/logout", async (req, res) => {
 
 app.get("/api/editNotes", async (req, res) => {
   try {
-    // check if the token cookie is set
     if (!req.cookies.token) {
       return res.json({ success: false, notAuthorized: true });
     }
-    // get the short url and the notes from the request body
     console.debug(req.query);
     let { shortUrl, notes } = req.query;
     shortUrl = shortUrl.split("/").pop();
-    // find the user by token
     let user = await User.findByToken(req.cookies.token);
-    // check if the user is null
     if (user === null) {
       return res.json({ success: false, notAuthorized: true });
     }
-    // find the url that matches the short url and the user
     console.log(user.email, shortUrl);
     let url = await urlDatabase.findOne({
       short: shortUrl,
       user: user.email,
     });
     console.log(url);
-    // check if the url is null
     if (url === null) {
       return res.json({ success: false, urlNotExists: true });
     }
-    // update the notes of the url
     url.notes = notes;
-    // save the url
     await url.save();
-    // return a success message
     return res.json({ success: true });
   } catch (error) {
-    // console.error(error);
     console.error(error);
     return res.json({ success: false, serverError: true });
   }
@@ -418,7 +385,7 @@ app.get("/api/getSearchResult", async (req, res) => {
         },
         {
           $project: {
-            short: 1, // include short field
+            short: 1,
             full: 1,
             notes: 1,
             createdAt: 1,
@@ -547,20 +514,16 @@ app.get("/api/data/short", async (req, res) => {
     if (user === null) {
       return res.json({ userNotExists: true });
     }
-    // Get the short URL from the request parameter
     const key = req.query.short.split("/").pop();
 
-    // Find the corresponding long URL and clicks count from the urlDatabase
     const shortUrl = await urlDatabase.findOne({
       short: key,
       user: user.email,
     });
     if (shortUrl == null) return res.json({ urlNotExists: true });
 
-    // Call the aggregateData function with the short URL and await the result
     const data = await shortUrl.aggregateData(key);
 
-    // Send the aggregated data as a JSON response
     res.json(data);
   } catch (error) {
     console.error(error);

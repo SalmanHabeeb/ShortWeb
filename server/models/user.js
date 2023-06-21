@@ -52,18 +52,14 @@ userSchema.method("generateAuthToken", async function () {
   }
 });
 
-// static method to find user by token
 userSchema.statics.findByToken = function (token) {
   let user = this;
   let decoded;
   try {
-    // decode the token using the secret key
     decoded = jwt.verify(token, config.keyForUserAuthTokenGen);
   } catch (error) {
-    // if there is an error, reject the promise
     return Promise.reject(error);
   }
-  // return the user that matches the token and the id
   return user.findOne({
     _id: decoded.id,
     "tokens.token": token,

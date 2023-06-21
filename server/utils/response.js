@@ -17,7 +17,6 @@ function getMappedURLData(url, isSafe) {
   };
 }
 
-// Define a function that takes an array of suggestionData objects as input
 function formatSuggestionData(data) {
   let formattedData = [];
   for (let obj of data) {

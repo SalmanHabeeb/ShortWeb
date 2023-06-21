@@ -18,11 +18,10 @@ function DashBoard() {
   useEffect(() => {
     const interval = setInterval(() => {
       socket.emit("getData", path);
-      console.log("Done"); // Send short URL to the socket
+      console.log("Done");
     }, 10000);
 
     socket.on("data", (data) => {
-      // Handle received data from the socket
       setCount(data.clicks);
       console.log(data);
     });

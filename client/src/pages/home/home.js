@@ -8,7 +8,6 @@ import CircularSpinner from "../../general/circular-spinner/circular-spinner";
 function HomePage() {
   console.log(sessionStorage.getItem("isLoggedIn"));
   const [url, setUrl] = useState("");
-  // Use array destructuring to get shortUrl and setshortUrl
   const [longUrl, setLongUrl] = useState("");
   const [shortUrl, setShortUrl] = useState("");
   const urlContainer = useRef(false);
@@ -23,7 +22,6 @@ function HomePage() {
 
   useEffect(() => {
     return () => {
-      // Clear the timeout if it exists
       if (timeoutId.current) {
         clearTimeout(timeoutId.current);
       }
@@ -91,26 +89,22 @@ function HomePage() {
     setNotes(e.target.value);
   }
 
-  // Function to handle client-side error, such as network failure
   function handleClientError() {
     alert(
       "Something went wrong. Please check your internet connection and try again."
     );
   }
 
-  // Function to handle server-side error, such as internal server error
   function handleServerError() {
     alert("Something went wrong on our end. Please try again later.");
   }
 
-  // Function to handle not authorized error, such as invalid or expired token
   function handleNotAuthorized() {
     alert(
       "You are not authorized to save notes for this URL. Please login again."
     );
   }
 
-  // Function to handle URL not exists error, such as invalid or deleted URL
   function handleUrlNotExists() {
     alert(
       "The URL you are trying to save notes for does not exist. Please check the URL and try again."
@@ -160,9 +154,7 @@ function HomePage() {
             value={url}
             onChange={(e) => setUrl(e.target.value)}
             onKeyDown={(e) => {
-              // Check if the key is Enter
               if (e.keyCode === 13) {
-                // Perform the search
                 handleSubmit();
               }
             }}
@@ -234,9 +226,7 @@ function HomePage() {
                       maxLength={"100"}
                       onChange={handleChangeNotes}
                       onKeyDown={(e) => {
-                        // Check if the key is Enter
                         if (e.keyCode === 13) {
-                          // Perform the search
                           handleClickSaveNotes();
                         }
                       }}

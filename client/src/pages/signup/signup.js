@@ -70,7 +70,6 @@ function SignUpPage() {
       }
     } else {
       console.log(data.data.isLoggedIn);
-      // localStorage.setItem("token", data.data.isLoggedIn.token);
       Cookies.set("isLoggedIn", data.data.isLoggedIn);
       sessionStorage.setItem("isLoggedIn", "true");
       let homeLink = document.createElement("a");
@@ -117,9 +116,7 @@ function SignUpPage() {
               title="The password should contain atleast one smallcase and uppercase alphabet, digit and a special character, and should be of length 8 to 16 characters"
               onChange={handlePasswordChange}
               onKeyDown={(e) => {
-                // Check if the key is Enter
                 if (e.keyCode === 13) {
-                  // Perform the search
                   handleSignUp(email, password);
                 }
               }}

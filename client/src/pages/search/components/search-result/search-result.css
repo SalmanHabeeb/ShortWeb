@@ -1,4 +1,3 @@
-/* Style the search result*/
 .search-result {
   display: flex;
   align-items: center;
@@ -10,12 +9,10 @@
   margin: 10px;
 }
 
-/* Style the search result info section */
 .search-result-info {
   flex: 1;
 }
 
-/* Style the search result short link */
 .search-result-short {
   font-weight: bold;
 }
@@ -30,7 +27,6 @@
   transition: 0.3s ease-in-out;
 }
 
-/* Style the search result full link */
 .search-result-full {
   color: #333;
 }
@@ -40,30 +36,25 @@
   transition: 0.3s ease-in-out;
 }
 
-/* Style the search result notes */
 .search-result-notes {
   font-style: italic;
 }
 
-/* Style the search result date */
 .search-result-date {
   color: #999;
 }
 
-/* Style the search result action section */
 .search-result-action {
   display: flex;
   align-items: center;
 }
 
-/* Style the search result button */
 .search-result-action button {
   background-color: #fff;
   border: none;
   cursor: pointer;
 }
 
-/* Style the search result icon */
 .search-result-action .material-icons {
   color: skyblue;
   border: none;

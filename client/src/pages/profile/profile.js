@@ -9,15 +9,13 @@ function ProfilePage() {
     email: "",
   });
   console.debug(userDetails);
-  const [showEditPassword, setShowEditPassword] = useState(false); // add a state to show or hide the edit password form
-  const [showDeleteProfile, setShowDeleteProfile] = useState(false); // add a state to show or hide the delete profile form
-  const [oldPassword, setOldPassword] = useState(""); // add a state to store the old password
-  const [newPassword, setNewPassword] = useState(""); // add a state to store the new password
-  const [deletePassword, setDeletePassword] = useState(""); // add a state to store the password for deletion
+  const [showEditPassword, setShowEditPassword] = useState(false);
+  const [showDeleteProfile, setShowDeleteProfile] = useState(false);
+  const [oldPassword, setOldPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [deletePassword, setDeletePassword] = useState("");
 
-  // Use useEffect hook to fetch user details when the component mounts
   useEffect(() => {
-    // Call the getSelf function and update the state with the response
     const handleWindowLoad = async () => {
       let data = await getSelf({});
       console.log(data);
@@ -69,11 +67,9 @@ function ProfilePage() {
     );
   }
 
-  // Define a function to handle password change
   async function handleChangePassword(e) {
     // Prevent the default form submission behavior
     e.preventDefault();
-    // Call the updatePassword function with the old and new passwords
     console.log(oldPassword, newPassword);
     let data = await updatePassword({
       oldPassword: oldPassword,
@@ -104,11 +100,9 @@ function ProfilePage() {
     }
   }
 
-  // Define a function to handle profile deletion
   const handleDeleteProfile = async (e) => {
     // Prevent the default form submission behavior
     e.preventDefault();
-    // Call the deleteSelf function with the password and redirect to the home page
     let data = await deleteSelf({ password: deletePassword });
     if (data.error) {
       handleClientError();

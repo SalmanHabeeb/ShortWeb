@@ -115,7 +115,6 @@
   position: absolute;
   margin-bottom: -10px;
   margin-left: -20px;
-  /* Set the z-index property to a high value to make the span element appear above other elements */
   z-index: 999;
   overflow: hidden;
   text-overflow: clip;
