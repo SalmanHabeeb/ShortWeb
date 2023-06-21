@@ -22,12 +22,33 @@ To run the project, you need to have Node.js, npm, and MongoDB installed on your
 
 1. Clone the repository from GitHub using `git clone https://github.com/your-username/ShortWeb.git`.
 2. Navigate to the project directory using `cd ShortWeb`.
-3. Navigate to subdirectory server and run `npm install`.
-4. Start the server using `npm run devStart`.
-5. Open another terminal and navigate to the client directory using `cd client`.
-6. Install the dependencies using `npm install`.
-7. Start the client using `npm start`.
-8. Open your browser and go to `http://localhost:3000` to use the application.
+3. Navigate to the subdirectory server and run `npm install`.
+4. Create a .env file in the server directory with the following variables:
+
+```
+PORT = <Server port address>
+HOST = <host name>
+
+LOCAL_CLIENT_APP = <Local Client Url>
+LOCAL_SERVER_API = <Local Server Url>
+LOCAL_MONGO_URL = <Mongo Cluster Connection Url>
+
+KEY_FOR_USER_AUTH_TOKEN_GEN = <Token generation secret key>
+VIRUSTOTAL_API_KEY = <Your VirusTotal API key>
+```
+
+5. Start the server using `npm run devStart`.
+6. Open another terminal and navigate to the client directory using `cd client`.
+7. Install the dependencies using `npm install`.
+8. Create a .env file in the client directory with the following variables:
+
+```
+REACT_APP_LOCAL_SERVER_API = <Local host base api url>
+REACT_APP_GET_ADDRESS_API = <Your ipapi api key>
+```
+
+9. Start the client using `npm start`.
+10. Open your browser and go to `http://localhost:3000` to use the application.
 
 ## How the project works
 

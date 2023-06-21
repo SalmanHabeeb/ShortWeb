@@ -20,7 +20,6 @@ function App() {
           <Route exact path="/" element={<HomePage />} />
           <Route exact path="/search" element={<SearchPage />} />
           <Route exact path="/profile" element={<ProfilePage />} />
-          <Route path="/analyse/*" element={<DashBoard />} />
           <Route path="/logout" element={<LogOutPage />} />
         </Route>
         <Route element={<PublicRoute />}>
@@ -28,6 +27,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/landingPage" element={<LandingPage />} />
         </Route>
+        <Route path="/analyse/*" element={<DashBoard />} />
         <Route path="*" element={<ReDirectPage />} />
       </Routes>
     </div>
