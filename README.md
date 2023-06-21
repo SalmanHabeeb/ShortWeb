@@ -22,7 +22,7 @@ ShortWeb offers the following features to enhance your web experience:
 
 To run the project, you need to have Node.js, npm, and MongoDB installed on your system.
 
-1. Clone the repository from GitHub using `git clone https://github.com/your-username/ShortWeb.git`.
+1. Clone the repository from GitHub using `git clone https://github.com/SalmanHabeeb/ShortWeb.git`.
 2. Navigate to the project directory using `cd ShortWeb`.
 3. Navigate to the subdirectory server and run `npm install`.
 4. Create a .env file in the server directory with the following variables:
