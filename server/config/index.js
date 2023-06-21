@@ -1,19 +1,21 @@
 module.exports = {
-    port: process.env.PORT,
-    local_client_app: process.env.LOCAL_CLIENT_APP,
-    remote_client_app: process.env.REMOTE_CLIENT_APP,
-    allowedDomains: (
-        process.env.NODE_ENV === "production"? [
-            process.env.REMOTE_CLIENT_APP,
-            process.env.REMOTE_SERVER_API,
-        ]: [
-            process.env.LOCAL_CLIENT_APP,
-            process.env.LOCAL_SERVER_API
-        ]
-    ),
-    mongoURL: (
-        process.env.NODE_ENV === "production"?
-            process.env.REMOTE_MONGO_URL:
-            process.env.LOCAL_MONGO_URL
-    )
-}
+  port: process.env.PORT,
+  local_client_app: process.env.LOCAL_CLIENT_APP,
+  remote_client_app: process.env.REMOTE_CLIENT_APP,
+  allowedDomains:
+    process.env.NODE_ENV === "production"
+      ? {
+          client: process.env.REMOTE_CLIENT_APP,
+          server: process.env.REMOTE_SERVER_API,
+        }
+      : {
+          client: process.env.LOCAL_CLIENT_APP,
+          server: process.env.LOCAL_SERVER_API,
+        },
+  mongoURL:
+    process.env.NODE_ENV === "production"
+      ? process.env.REMOTE_MONGO_URL
+      : process.env.LOCAL_MONGO_URL,
+  keyForUserAuthTokenGen: process.env.KEY_FOR_USER_AUTH_TOKEN_GEN,
+  virustotalApiKey: process.env.VIRUSTOTAL_API_KEY,
+};

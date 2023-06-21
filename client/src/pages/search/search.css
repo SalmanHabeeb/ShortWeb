@@ -1,0 +1,147 @@
+.search__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.search__url-container {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  width: 100vw;
+  height: 25vh;
+}
+
+.search__url-input {
+  width: 350px;
+  height: 40px;
+  margin-right: 10px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s ease-in-out;
+}
+
+.search__url-input:focus {
+  border-color: dodgerblue;
+}
+
+.search-button {
+  width: 80px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(3, 170, 31);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.search-button:hover {
+  background-color: rgb(0, 255, 42);
+  color: black;
+}
+
+.search-suggestions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  position: absolute;
+  width: 350px;
+  height: fit-content;
+  background-color: white;
+}
+
+.search-suggestion {
+  width: 350px;
+  height: 40px;
+  line-height: 40px;
+  background-color: white;
+  color: black;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.search-suggestion:hover {
+  background-color: #ccc;
+}
+
+.search-suggestion:focus {
+  background-color: #ccc;
+  outline: none;
+}
+
+.close {
+  display: none;
+}
+
+.field-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 60px;
+}
+
+.field-input {
+  display: none;
+}
+
+.field-label {
+  width: 80px;
+  height: 30px;
+  line-height: 30px;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.field-label-selected {
+  background-color: white;
+  color: #3250f1;
+}
+
+.field-label-unselected {
+  background-color: #3250f1;
+}
+
+.search-results-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 20px;
+  height: 40vh;
+  padding: 0px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+@media screen and (max-width: 600px) {
+  .search__url-input {
+    width: 60vw;
+  }
+
+  .search-suggestions {
+    width: 60vw;
+  }
+
+  .search-suggestion {
+    width: 60vw;
+  }
+
+  .search-results-container {
+    width: 90%;
+    height: fit-content;
+    padding: 20px;
+    overflow-y: visible;
+  }
+}

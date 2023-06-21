@@ -1,118 +1,303 @@
-#Home {
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
+#HomePage {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
 }
 
-.url-input {
-    margin-right: 10px;
-    padding: 10px;
-    border: 2px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-    outline: none;
-    transition: border-color 0.3s ease-in-out;
-    width: 350px;
-}
-  
-.url-input:focus {
-    border-color: dodgerblue;
-}
-  
-.submit-button {
-    padding: 10px 20px;
-    background-color: rgb(3, 170, 31);;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease-in-out;
-}
-  
-.submit-button:hover {
-    background-color: rgb(0, 255, 42);
-    color: black;
+.home-container {
+  width: 100vw;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 85vh;
+  gap: 20px;
 }
 
-.url-container {
-    display: flex;
+.home__url-input {
+  width: 350px;
+  height: 20px;
+  margin-right: 10px;
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s ease-in-out;
+}
+
+.home__url-input:focus {
+  border-color: dodgerblue;
+}
+
+.home__submit-button {
+  width: 120px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(3, 170, 31);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.home__submit-button:hover {
+  background-color: rgb(0, 255, 42);
+  color: black;
+}
+
+.home__url-container {
+  display: flex;
+  align-items: flex-end;
+
+  height: 100px;
 }
 
 .data {
-    display: flex;
-    flex-direction: column;
-    height: 350px;
-    overflow-x: hidden;
-    overflow-y: auto;
-    scroll-behavior: smooth;
-    padding-right: 7px;
+  display: flex;
+  flex-direction: column;
+  height: 350px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  padding-right: 7px;
 }
 
 .data .data-url {
-    display: flex;
-    align-items: stretch;
-    justify-content: space-around;
-    width: 500px;
-    height: 50px;
-    line-height: 50px;
-    background-color: rgba(26, 25, 25, 0.836);
-    border-radius: 3px;
+  display: flex;
+  align-items: stretch;
+  justify-content: space-around;
+  width: 500px;
+  height: 50px;
+  line-height: 50px;
+  background-color: rgba(26, 25, 25, 0.836);
+  border-radius: 3px;
+  padding-right: 10px;
+}
+
+.data .url_n_notes-container {
+  display: flex;
+  flex-direction: column;
 }
 
 .data .long-url {
-    width: 225px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  width: 225px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .data .short-url {
-    width: 225px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  width: 225px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .data .copy-button {
-    width: 60px;
-    height: 40px;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
+  width: 60px;
+  height: 40px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
 }
 
 .data .copy-button i {
-    font-size: 16px;
-    color: gray;
+  font-size: 16px;
+  color: gray;
 }
 
 .data .copy-button:hover i {
-    color: black;
+  color: black;
 }
 
 .data span {
-    background-color: black;
-    color: white;
-    font-weight: bold;
-    padding: 5px;
-    border-radius: 5px;
-    height: 10px;
-    width: 70px;
-    font-size: 10px;
-    position: absolute;
-    margin-bottom: 100px;
-    margin-left: 550px;
-    /* Set the z-index property to a high value to make the span element appear above other elements */
-    z-index: 999;
-    overflow: hidden;
-    text-overflow: clip;
-    line-height: 10px;
+  background-color: black;
+  color: white;
+  font-weight: bold;
+  padding: 5px;
+  border-radius: 5px;
+  height: 10px;
+  width: 70px;
+  font-size: 10px;
+  position: absolute;
+  margin-bottom: -10px;
+  margin-left: -20px;
+  /* Set the z-index property to a high value to make the span element appear above other elements */
+  z-index: 999;
+  overflow: hidden;
+  text-overflow: clip;
+  line-height: 10px;
 }
-  
+
 .data span:hover {
-    background-color: darkgreen;
+  background-color: darkgreen;
+}
+
+.data .analysis-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.data .analysis-button i {
+  color: gray;
+}
+
+.data .analysis-button:hover i {
+  color: black;
+}
+
+.notes-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 100%;
+  padding-bottom: 10px;
+
+  background-color: rgba(26, 25, 25, 0.836);
+}
+
+.notes-box__input-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 100%;
+}
+
+.notes-box__input {
+  width: 400px;
+  font-size: 15px;
+
+  border: none;
+  color: white;
+  background-color: #333;
+  margin: 10px;
+}
+
+.data .notes-box__input__span {
+  display: absolute;
+  margin-top: 50px;
+  margin-left: 350px;
+  background-color: transparent;
+}
+
+.data .notes-box__input__span:hover {
+  background-color: transparent;
+}
+
+.notes-box__save-button {
+  width: 80px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(3, 170, 31);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.notes-box__save-button:hover {
+  background-color: rgb(0, 255, 42);
+  color: black;
+}
+
+.notes-box__edit-button {
+  width: 120px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(3, 170, 31);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.notes-box__edit-button:hover {
+  background-color: rgb(0, 255, 42);
+  color: black;
+}
+
+@media screen and (max-width: 600px) {
+  .home-container {
+    height: fit-content;
+    gap: 20px;
+  }
+  .home__url-container {
+    width: fit-content;
+    padding: 10px;
+  }
+  .home__url-input {
+    width: 50vw;
+  }
+  .home__submit-button {
+    width: 80px;
+    font-size: 16px;
+    text-align: center;
+    padding: 0px;
+    height: 42px;
+  }
+
+  .url_n_notes-container {
+    width: 90vw;
+    height: fit-content;
+  }
+
+  .data {
+    width: 90vw;
+  }
+
+  .data .data-url {
+    width: 90vw;
+    height: 60px;
+    padding: 0px;
+    margin: 0px;
+  }
+
+  .data .long-url {
+    display: none;
+  }
+
+  .data span {
+    display: none;
+  }
+
+  .notes-box {
+    width: 90vw;
+    height: fit-content;
+  }
+
+  .notes-box__input {
+    width: 90%;
+    height: 60px;
+  }
+
+  .data .notes-box__input__span {
+    display: block;
+    margin-left: 70%;
+  }
 }

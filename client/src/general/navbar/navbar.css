@@ -1,0 +1,144 @@
+#NavBar {
+  top: 0px;
+}
+
+.navbar__container {
+  top: 0px;
+  width: 100vw;
+  height: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #111;
+  color: #ccc;
+}
+
+.navbar__logo {
+  padding: 10px;
+}
+
+.navbar__logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.navbar__logo-container__menu-btn {
+  display: none;
+}
+
+.navbar__urls {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  width: fit-content;
+  margin-right: 10px;
+}
+
+.navbar__show-urls {
+  display: none;
+}
+
+.navbar__url {
+  color: #ccc;
+
+  width: 70px;
+  height: 40px;
+  line-height: 40px;
+  cursor: pointer;
+}
+
+.navbar__url:hover {
+  background-color: #333;
+}
+
+.navbar__login-button {
+  padding: 10px 20px;
+  background-color: rgb(3, 170, 31);
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.navbar__login-button:hover {
+  background-color: rgb(0, 255, 42);
+}
+
+.navbar__login-button a {
+  text-decoration: none;
+  color: #ccc;
+}
+
+.navbar__login-button:hover a {
+  color: black;
+}
+
+/* Responsive Styles */
+
+@media only screen and (max-width: 800px) {
+  .navbar__container {
+    height: fit-content;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  .navbar__logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100vw;
+    height: 80px;
+  }
+  .navbar__logo-container__menu-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 40px;
+    height: 40px;
+    margin: 10px;
+
+    color: #ccc;
+    background-color: #111;
+
+    border: none;
+    cursor: pointer;
+  }
+
+  .navbar__logo-container__menu-btn:hover {
+    background-color: #222;
+  }
+
+  .navbar__urls {
+    display: none;
+  }
+
+  .navbar__show_urls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+
+    background-color: #111;
+  }
+
+  .navbar__url {
+    width: 100vw;
+    height: fit-content;
+  }
+
+  .navbar__login-button {
+    width: 100vw;
+    background-color: #111;
+  }
+
+  .navbar__login-button:hover {
+    background-color: #333;
+    color: #ccc;
+  }
+
+  .navbar__login-button:hover a {
+    color: #ccc;
+  }
+}

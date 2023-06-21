@@ -1,0 +1,84 @@
+/* Style the search result*/
+.search-result {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  width: 500px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  margin: 10px;
+}
+
+/* Style the search result info section */
+.search-result-info {
+  flex: 1;
+}
+
+/* Style the search result short link */
+.search-result-short {
+  font-weight: bold;
+}
+
+.search-result-short a {
+  text-decoration: none;
+  user-select: all;
+}
+
+.search-result-short:hover a {
+  color: #00ff00;
+  transition: 0.3s ease-in-out;
+}
+
+/* Style the search result full link */
+.search-result-full {
+  color: #333;
+}
+
+.search-result-full:hover a {
+  color: #00ff00;
+  transition: 0.3s ease-in-out;
+}
+
+/* Style the search result notes */
+.search-result-notes {
+  font-style: italic;
+}
+
+/* Style the search result date */
+.search-result-date {
+  color: #999;
+}
+
+/* Style the search result action section */
+.search-result-action {
+  display: flex;
+  align-items: center;
+}
+
+/* Style the search result button */
+.search-result-action button {
+  background-color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+/* Style the search result icon */
+.search-result-action .material-icons {
+  color: skyblue;
+  border: none;
+  background-color: transparent;
+}
+
+.search-result-action .material-icons:hover {
+  color: #00ff00;
+  border: none;
+  background-color: transparent;
+}
+
+@media screen and (max-width: 600px) {
+  .search-result {
+    width: 90vw;
+    height: fit-content;
+  }
+}
