@@ -105,4 +105,4 @@ I used the following resources and references while working on this project:
 - [React documentation](https://reactjs.org/docs/getting-started.html)
 - [Express documentation](https://expressjs.com/en/4x/api.html)
 - [MongoDB documentation](https://docs.mongodb.com/)
-- [How to build a URL shortener with Node.js, Express, and MongoDB](https://www.freecodecamp.org/news/how-to-build-a-url-shortener-with-node-js-express-and-mongodb/)
+- [How To Build A URL Shortener With Node.js, Express, and MongoDB](https://youtu.be/SLpUKAGnm-g)
