@@ -1,5 +1,7 @@
 # ShortWeb
 
+## Description
+
 ShortWeb is a web application that allows you to shorten long URLs and share them easily. It also stores your urls if you are logged in. You can also create notes for each short url you create. It also has in-built search functionality for retrieving your urls in future. The application is integrated with VirusTotal API to ensure that malicious urls are not propagated through our medium. It also uses client side caching for faster redirection.
 
 ## Features
@@ -58,11 +60,32 @@ The project consists of two parts: the server and the client.
 
 - The user interface is built using React. It allows the user to create short urls, browse previously created urls, create and delete account and view analysis of each created url.
 
-### FrontEnd
+### Client
 
-Landing page is for users to create urls and share them avoiding the hassle of logging in. If the user wants to access more features, they have to signup. Once logged in, the user can make notes for their urls. Also, they can search the urls by navigating to Search page from navigation bar. Search page enables users to search urls, with autocomplete functionality. For retrieving the user details, the user can navigate to the Profile page using navigation bar. Here, the user can modify his password and delete his account.
+The client is the front-end part of the application that provides the user interface. It consists of the following pages:
 
-### APIs
+- **Landing page**: This is the main page where users can enter a long URL and get a short URL in return. They can also see a list of previously generated short URLs and their statistics. This page does not require the user to log in, so anyone can use it to create and share short URLs.
+- **Signup page**: This is the page where users can create a free account by providing their name, email, and password. Having an account allows the user to access more features, such as notes, search, and profile.
+- **Login page**: This is the page where users can log in to their existing account by providing their email and password. They will receive a token that will be stored in their browser's local storage and used for authentication.
+- **Search page**: This is the page where users can search for their short URLs by keywords or notes. They can also use the autocomplete feature that will suggest possible matches as they type. Users can access this page by clicking on the search tab in the navigation bar.
+- **Profile page**: This is the page where users can view and edit their personal details, namely email, and password. They can also delete their account if they wish to do so. Users can access this page by clicking on profile tab in the navigation bar.
+
+### API Endpoints
+
+The server provides the following API endpoints for the client:
+
+- `/api/short/create`: GET - for creating short URLs from long URLs. The request body should contain the long URL as `longUrl`. The response body will contain the short URL as `shortUrl`.
+- `/api/short`: GET - for obtaining short URLs and their metadata. The request query should contain the short URL as `shortUrl`. The response body will contain the long URL as `full`.
+- `/api/user`: GET - for getting user details. The request header should contain the user token as `token`. The response body will contain the user email `email`.
+- `/api/user/delete`: POST - for deleting user account. The request header should contain the user token as `token`. The response body will contain a success message as `{sucess: true}`.
+- `/api/password`: POST - for changing user password. The request header should contain the user token as `token`. The request body should contain the old password and the new password as `oldPassword` and `newPassword`. The response body will contain a success message as `{sucess: true}`.
+- `/api/signup`: POST - for creating a new user account. The request body should contain the user name, email, and password as `name`, `email`, and `password`. The response body will contain a success message as `{sucess: true}`.
+- `/api/login`: POST - for logging in an existing user account. The request body should contain the user email and password as `email` and `password`. The response body will contain the user token as `token`.
+- `/api/login/verify`: GET - to verify whether a user is logged in. The request header should contain the user token as `token`. The response body will contain a boolean value as `loggedIn`.
+- `/api/logout`: GET - to log out a user. The request header should contain the user token as `token`. The response body will contain a success message as `{sucess: true}`.
+- `/api/notes/edit`: GET - to edit notes for a short URL. The request header should contain the user token as `token`. The request query should contain the short URL and the new note as `shortUrl` and `note`. The response body will contain a success message as `{sucess: true}`.
+- `/api/search/results`: GET - to get search results for a query. The request header should contain the user token as `token`. The request query should contain the search query as `query` and field as `field`. The response body will contain an array of short URLs that match the query as `results`.
+- `/api/search/suggestions`: GET - to get suggestions for a query being typed. The request header should contain the user token as `token`. The request query should contain the partial query as `query` and field of search as `field`. The response body will contain an array of possible suggestions as `suggestions`.
 
 ## What I learned from the project
 
