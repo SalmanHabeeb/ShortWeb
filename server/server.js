@@ -60,7 +60,7 @@ function deleteExpiredTokens() {
 
 cron.schedule("0 0 * * *", deleteExpiredTokens);
 
-app.get("/api/getShortenedURL", async (req, res) => {
+app.get("/api/short/create", async (req, res) => {
   let user = null;
   if (req.cookies.token) {
     user = await User.findByToken(req.cookies.token);
@@ -84,7 +84,7 @@ app.get("/api/getShortenedURL", async (req, res) => {
   res.send(utils.response.getShortenedURLData(shortUrl));
 });
 
-app.get("/api/getMappedURL", async (req, res) => {
+app.get("/api/short", async (req, res) => {
   try {
     console.log(req.query.key);
     console.log(req.query.address);
@@ -294,7 +294,7 @@ app.post("/api/login", async (req, res) => {
   }
 });
 
-app.get("/api/verifyLogin", async (req, res) => {
+app.get("/api/login/verify", async (req, res) => {
   if (!req.cookies.token) {
     return res.json({ loggedIn: false });
   }
@@ -325,7 +325,7 @@ app.get("/api/logout", async (req, res) => {
   }
 });
 
-app.get("/api/editNotes", async (req, res) => {
+app.get("/api/notes/edit", async (req, res) => {
   try {
     if (!req.cookies.token) {
       return res.json({ success: false, notAuthorized: true });
@@ -355,7 +355,7 @@ app.get("/api/editNotes", async (req, res) => {
   }
 });
 
-app.get("/api/getSearchResult", async (req, res) => {
+app.get("/api/search/results", async (req, res) => {
   try {
     if (!req.cookies.token) {
       return res.json({ notAuthorized: true });
@@ -431,7 +431,7 @@ app.get("/api/getSearchResult", async (req, res) => {
   }
 });
 
-app.get("/api/getSuggestions", async (req, res) => {
+app.get("/api/search/suggestions", async (req, res) => {
   try {
     if (!req.cookies.token) {
       return res.json({ notAuthorized: true });

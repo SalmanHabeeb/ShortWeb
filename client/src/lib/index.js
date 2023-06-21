@@ -2,7 +2,7 @@ import { Axios } from "../config/index.js";
 
 export async function getShortenedURL(url) {
   try {
-    const res = await Axios.get("/getShortenedURL", {
+    const res = await Axios.get("/short/create", {
       params: { url },
       crossdomain: true,
     });
@@ -17,7 +17,7 @@ export async function getShortenedURL(url) {
 
 export async function getMappedURL(data) {
   try {
-    const res = await Axios.get("/getMappedURL", {
+    const res = await Axios.get("/short", {
       params: data,
       crossdomain: true,
     });
@@ -127,7 +127,7 @@ export async function getUrlData(data) {
 
 export async function verifyLogin() {
   try {
-    const res = await Axios.get("/verifyLogin", {
+    const res = await Axios.get("/login/verify", {
       params: {},
       crossdomain: true,
     });
@@ -141,7 +141,7 @@ export async function verifyLogin() {
 
 export async function postNotes(data) {
   try {
-    const res = await Axios.get("/editNotes", {
+    const res = await Axios.get("/notes/edit", {
       params: data,
       crossdomain: true,
     });
@@ -155,7 +155,7 @@ export async function postNotes(data) {
 
 export async function getSuggestions(data) {
   try {
-    const res = await Axios.get("/getSuggestions", {
+    const res = await Axios.get("/search/suggestions", {
       params: data,
       crossdomain: true,
     });
@@ -169,7 +169,7 @@ export async function getSuggestions(data) {
 
 export async function getSearchResult(data) {
   try {
-    const res = await Axios.get("/getSearchResult", {
+    const res = await Axios.get("/search/results", {
       params: data,
       crossdomain: true,
     });
