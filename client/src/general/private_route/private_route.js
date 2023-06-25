@@ -1,20 +1,19 @@
 import { Navigate, Outlet } from "react-router-dom";
-import Cookies from "js-cookie";
+import { isLoggedIn } from "../utils/utils";
 
 const PrivateRoute = () => {
-  // Fetching the user from the user context.
   let user;
-  if (Cookies.get("isLoggedIn")) {
+  if (isLoggedIn()) {
     user = true;
   } else {
     user = false;
   }
-  const redirectLoginUrl = `/landingPage`;
+  const redirectLandingUrl = `/landingPage`;
 
   // If the user is not logged in we are redirecting them
   // to the login page. Otherwise we are letting them to
   // continue to the page as per the URL using <Outlet />.
-  return !user ? <Navigate to={redirectLoginUrl} /> : <Outlet />;
+  return !user ? <Navigate to={redirectLandingUrl} /> : <Outlet />;
 };
 
 export default PrivateRoute;
