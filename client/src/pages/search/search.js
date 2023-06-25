@@ -74,6 +74,24 @@ function SearchPage() {
     setSuggestionList(suggestionData.data.suggestions);
   }
 
+  function handleClientError() {
+    alert(
+      "Something went wrong. Please check your internet connection and try again."
+    );
+  }
+
+  function handleServerError() {
+    alert("Something went wrong on our end. Please try again later.");
+  }
+
+  function handleNotAuthorized() {
+    alert("You are not logged in. Try clearing the cookies and login again.");
+  }
+
+  function handleUserNotExists() {
+    alert("You are not logged in. Try clearing the cookies and login again.");
+  }
+
   async function handleSearch(searchText) {
     setSuggestionList([]);
     setSearchItem(searchText);
@@ -83,7 +101,17 @@ function SearchPage() {
       query: searchText,
       field: field,
     });
-    setSearchResults(searchResultData.data.suggestions);
+    if (searchResultData.error) {
+      handleClientError();
+    } else if (searchResultData.data.serverError) {
+      handleServerError();
+    } else if (searchResultData.data.userNotExists) {
+      handleUserNotExists();
+    } else if (searchResultData.data.notAuthorized) {
+      handleNotAuthorized();
+    } else {
+      setSearchResults(searchResultData.data.suggestions);
+    }
     setSearching(false);
   }
 

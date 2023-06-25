@@ -6,11 +6,8 @@ export async function getShortenedURL(url) {
       params: { url },
       crossdomain: true,
     });
-    console.log("jello");
-    console.log(res.data);
     return { data: res.data, error: false };
   } catch (error) {
-    console.error(error);
     return { data: [], error: true };
   }
 }
@@ -21,11 +18,8 @@ export async function getMappedURL(data) {
       params: data,
       crossdomain: true,
     });
-    console.log("jello");
-    console.log(res);
     return { data: res.data, error: false };
   } catch (error) {
-    console.error(error);
     return { data: [], error: true };
   }
 }
@@ -36,8 +30,6 @@ export async function makeSignUpPostRequest(data) {
       params: data,
       crossdomain: true,
     });
-    console.log("Made signup post request");
-    console.debug(res);
     return { data: res.data, error: false };
   } catch (error) {
     return { data: [], error: true };
@@ -50,8 +42,6 @@ export async function makeLoginPostRequest(data) {
       params: data,
       crossdomain: true,
     });
-    console.log("Made login post request");
-    console.debug(res);
     return { data: res.data, error: false };
   } catch (error) {
     return { data: [], error: true };
@@ -64,7 +54,6 @@ export async function getSelf(data) {
       params: data,
       crossdomain: true,
     });
-    console.debug(res);
     return { data: res.data, error: false };
   } catch (error) {
     return { data: [], error: true };
@@ -77,7 +66,6 @@ export async function updatePassword(data) {
       params: data,
       crossdomain: true,
     });
-    console.debug(res);
     return { data: res.data, error: false };
   } catch (error) {
     return { data: [], error: true };
@@ -90,7 +78,6 @@ export async function deleteSelf(data) {
       params: data,
       crossdomain: true,
     });
-    console.debug(res);
     return { data: res.data, error: false };
   } catch (error) {
     return { data: [], error: true };
@@ -103,10 +90,8 @@ export async function sendLogOutRequest() {
       params: {},
       crossdomain: true,
     });
-    console.debug(res);
     return { data: res.data, error: false };
   } catch (error) {
-    console.error(error);
     return { data: [], error: true };
   }
 }
@@ -117,10 +102,8 @@ export async function getUrlData(data) {
       params: data,
       crossdomain: true,
     });
-    console.debug(res);
     return { data: res.data, error: false };
   } catch (error) {
-    console.error(error);
     return { data: [], error: true };
   }
 }
@@ -131,10 +114,8 @@ export async function verifyLogin() {
       params: {},
       crossdomain: true,
     });
-    console.debug(res);
     return { data: res.data, error: false };
   } catch (error) {
-    console.error(error);
     return { data: [], error: true };
   }
 }
@@ -145,10 +126,8 @@ export async function postNotes(data) {
       params: data,
       crossdomain: true,
     });
-    console.debug(res);
     return { data: res.data, error: false };
   } catch (error) {
-    console.error(error);
     return { data: [], error: true };
   }
 }
@@ -159,10 +138,8 @@ export async function getSuggestions(data) {
       params: data,
       crossdomain: true,
     });
-    console.debug(res);
     return { data: res.data, error: false };
   } catch (error) {
-    console.error(error);
     return { data: [], error: true };
   }
 }
@@ -173,10 +150,8 @@ export async function getSearchResult(data) {
       params: data,
       crossdomain: true,
     });
-    console.debug(res);
     return { data: res.data, error: false };
   } catch (error) {
-    console.error(error);
     return { data: [], error: true };
   }
 }

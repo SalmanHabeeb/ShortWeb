@@ -60,6 +60,10 @@ function deleteExpiredTokens() {
 
 cron.schedule("0 0 * * *", deleteExpiredTokens);
 
+app.get("/", async (req, res) => {
+  res.json({ message: "Hello World" });
+});
+
 app.get("/api/short/create", async (req, res) => {
   let user = null;
   if (req.cookies.token) {
@@ -358,7 +362,7 @@ app.get("/api/notes/edit", async (req, res) => {
 app.get("/api/search/results", async (req, res) => {
   try {
     if (!req.cookies.token) {
-      return res.json({ notAuthorized: true });
+      return res.json({ userNotExists: true });
     }
     const user = await User.findByToken(req.cookies.token);
     if (user === null) {

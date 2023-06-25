@@ -77,8 +77,14 @@ function HomePage() {
   async function handleSubmit(e) {
     setIsSqueezing(true);
     let response = await getShortenedURL(url);
-    if (response.data.valid === false) {
-      handleInValidResponse();
+    if (response.error) {
+      handleClientError();
+    } else if (!response.data.shortUrl) {
+      if (response.data.serverError) {
+        handleServerError();
+      } else if (response.data.valid === false) {
+        handleInValidResponse();
+      }
     } else {
       handleValidResponse(response.data);
     }

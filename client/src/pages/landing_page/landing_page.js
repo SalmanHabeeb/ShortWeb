@@ -46,6 +46,16 @@ function LandingPage() {
     goToLink.click();
   }
 
+  function handleClientError() {
+    alert(
+      "Something went wrong. Please check your internet connection and try again."
+    );
+  }
+
+  function handleServerError() {
+    alert("Something went wrong on our end. Please try again later.");
+  }
+
   function handleInValidResponse() {
     console.log("invalid response");
     alert("Invalid url");
@@ -59,8 +69,14 @@ function LandingPage() {
   async function handleSubmit(e) {
     setIsSqueezing(true);
     let response = await getShortenedURL(url);
-    if (response.data.valid === false) {
-      handleInValidResponse();
+    if (response.error) {
+      handleClientError();
+    } else if (!response.data.shortUrl) {
+      if (response.data.serverError) {
+        handleServerError();
+      } else if (response.data.valid === false) {
+        handleInValidResponse();
+      }
     } else {
       handleValidResponse(response.data);
     }
