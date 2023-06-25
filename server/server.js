@@ -212,7 +212,7 @@ app.post("/api/password", async (req, res) => {
     return res.json({ success: false, passwordNotMatch: true });
   } catch (error) {
     console.log("188");
-    console.error(error);
+    console.error(req.body);
     return res.json({ success: false, serverError: true });
   }
 });

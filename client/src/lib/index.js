@@ -74,7 +74,7 @@ export async function getSelf(data) {
 export async function updatePassword(data) {
   try {
     const res = await Axios.post("/password", {
-      params: {},
+      params: data,
       crossdomain: true,
     });
     console.debug(res);
