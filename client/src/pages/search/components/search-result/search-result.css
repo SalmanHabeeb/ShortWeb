@@ -11,6 +11,7 @@
 
 .search-result-info {
   flex: 1;
+  width: 90%;
 }
 
 .search-result-short {
