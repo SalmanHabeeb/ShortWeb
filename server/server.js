@@ -35,6 +35,7 @@ mongoose
 const app = express();
 
 app.use(cors({ credentials: true, origin: allowedDomains.client }));
+console.debug(allowedDomains.client);
 app.use(helmet());
 app.use(compression());
 app.use(express.json());
