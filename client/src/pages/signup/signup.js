@@ -73,6 +73,7 @@ function SignUpPage() {
       Cookies.set("isLoggedIn", data.data.isLoggedIn);
       Cookies.set("token", data.data.token, {
         expires: 30,
+        sameSite: "None",
       });
       sessionStorage.setItem("isLoggedIn", "true");
       let homeLink = document.createElement("a");
