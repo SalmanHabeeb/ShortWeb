@@ -248,15 +248,15 @@ app.post("/api/signup", async (req, res) => {
     const tokenData = await user.generateAuthToken();
     await user.save();
     if (!tokenData.error) {
-      res.cookie("token", tokenData.token, {
-        maxAge: 30 * 24 * 60 * 60 * 1000,
-        domain: urlparser(allowedDomains.client).hostname.toString(),
-        httpOnly: true,
-        secure: true,
-        sameSite: "strict",
-      });
+      // res.cookie("token", tokenData.token, {
+      //   maxAge: 30 * 24 * 60 * 60 * 1000,
+      //   domain: urlparser(allowedDomains.client).hostname.toString(),
+      //   httpOnly: true,
+      //   secure: true,
+      //   sameSite: "strict",
+      // });
 
-      return res.send({ isLoggedIn: "true" });
+      return res.send({ isLoggedIn: "true", token: tokenData.token });
     } else {
       return res.json({ isLoggedIn: null, serverError: true });
     }
@@ -281,15 +281,15 @@ app.post("/api/login", async (req, res) => {
       const tokenData = await user.generateAuthToken();
       await user.save();
       if (!tokenData.error) {
-        res.cookie("token", tokenData.token, {
-          maxAge: 30 * 24 * 60 * 60 * 1000,
-          domain: urlparser(allowedDomains.client).hostname.toString(),
-          httpOnly: true,
-          secure: true,
-          sameSite: "strict",
-        });
+        // res.cookie("token", tokenData.token, {
+        //   maxAge: 30 * 24 * 60 * 60 * 1000,
+        //   domain: urlparser(allowedDomains.client).hostname.toString(),
+        //   httpOnly: true,
+        //   secure: true,
+        //   sameSite: "strict",
+        // });
 
-        return res.send({ isLoggedIn: "true" });
+        return res.send({ isLoggedIn: "true", token: tokenData.token });
       } else {
         return res.json({ isLoggedIn: null, serverError: true });
       }

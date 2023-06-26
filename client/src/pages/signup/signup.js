@@ -71,6 +71,10 @@ function SignUpPage() {
     } else {
       console.log(data.data.isLoggedIn);
       Cookies.set("isLoggedIn", data.data.isLoggedIn);
+      Cookies.set("token", data.data.token, {
+        sameSite: "Strict",
+        expires: 30,
+      });
       sessionStorage.setItem("isLoggedIn", "true");
       let homeLink = document.createElement("a");
       homeLink.href = "/landingPage";
