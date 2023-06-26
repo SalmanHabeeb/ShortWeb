@@ -11,6 +11,7 @@ const argon2 = require("argon2");
 const cookieParser = require("cookie-parser");
 const cron = require("node-cron");
 const redis = require("redis");
+const urlparser = require("url-parse");
 
 const config = require("./config");
 const { port, allowedDomains, mongoURL } = config;
@@ -249,6 +250,7 @@ app.post("/api/signup", async (req, res) => {
     if (!tokenData.error) {
       res.cookie("token", tokenData.token, {
         maxAge: 30 * 24 * 60 * 60 * 1000,
+        domain: urlparser(allowedDomains.client).hostname.toString(),
         httpOnly: true,
         secure: true,
         sameSite: "strict",
@@ -281,6 +283,7 @@ app.post("/api/login", async (req, res) => {
       if (!tokenData.error) {
         res.cookie("token", tokenData.token, {
           maxAge: 30 * 24 * 60 * 60 * 1000,
+          domain: urlparser(allowedDomains.client).hostname.toString(),
           httpOnly: true,
           secure: true,
           sameSite: "strict",
