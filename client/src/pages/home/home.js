@@ -72,6 +72,7 @@ function HomePage() {
     urlContainer.current = true;
     setLongUrl(url);
     setShortUrl(data.shortUrl);
+    setNotes("");
   }
 
   async function handleSubmit(e) {
