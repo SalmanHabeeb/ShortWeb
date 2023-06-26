@@ -62,7 +62,7 @@ function deleteExpiredTokens() {
 
 cron.schedule("0 0 * * *", deleteExpiredTokens);
 
-app.get("/", async (req, res) => {
+app.get("/api", async (req, res) => {
   res.json({ message: "Hello World" });
 });
 
