@@ -1,5 +1,6 @@
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
+import { serverAPI } from "./config";
 import DashBoard from "./pages/dashboard/dashboard";
 import LandingPage from "./pages/landing_page/landing_page";
 import ReDirectPage from "./pages/redirect/redirect";
@@ -15,7 +16,7 @@ import LogOutPage from "./pages/logout/logout";
 function App() {
   return (
     <div className="App">
-      <script crossorigin src="*"></script>
+      <script crossorigin src={serverAPI}></script>
       <Routes>
         <Route element={<PrivateRoute />}>
           <Route exact path="/" element={<HomePage />} />

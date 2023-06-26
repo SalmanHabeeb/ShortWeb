@@ -16,3 +16,8 @@ export const Axios = axios.create({
   withCredentials: true,
   baseURL: API_URL,
 });
+
+export const serverAPI =
+  process.env.NODE_ENV === "production"
+    ? process.env.REACT_APP_REMOTE_SERVER_API
+    : process.env.REACT_APP_LOCAL_SERVER_API;
