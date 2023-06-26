@@ -66,7 +66,7 @@ function LoginPage() {
       Cookies.set("isLoggedIn", data.data.isLoggedIn, { sameSite: "Strict" });
       Cookies.set("token", data.data.token, {
         expires: 30,
-        sameSite: "None",
+        sameSite: "Lax",
       });
       sessionStorage.setItem("isLoggedIn", data.data.isLoggedIn);
       let homeLink = document.createElement("a");
