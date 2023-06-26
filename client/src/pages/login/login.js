@@ -65,7 +65,6 @@ function LoginPage() {
       console.log(data.data.isLoggedIn);
       Cookies.set("isLoggedIn", data.data.isLoggedIn, { sameSite: "Strict" });
       Cookies.set("token", data.data.token, {
-        sameSite: "Strict",
         expires: 30,
       });
       sessionStorage.setItem("isLoggedIn", data.data.isLoggedIn);
