@@ -1,11 +1,11 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { isLoggedIn } from "../utils/utils";
+import Cookies from "js-cookie";
 
 const PublicRoute = () => {
   let user;
   let redirectHomeUrl = "/";
 
-  if (isLoggedIn()) {
+  if (Cookies.get("isLoggedIn")) {
     user = true;
   } else {
     user = false;

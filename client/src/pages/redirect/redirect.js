@@ -60,8 +60,11 @@ function ReDirectPage() {
   window.onload = async () => {
     let data = localStorage.getItem(getPath());
     if (!data) {
-      let address = await fetch(process.env.REACT_APP_GET_ADDRESS_API);
-      address = await address.json();
+      let address = { query: "1.0.0.0" };
+      try {
+        await fetch(process.env.REACT_APP_GET_ADDRESS_API);
+        let address = await address.json();
+      } catch (error) {}
       data = await getMappedURL({ key: getPath(), address: address.query });
       if (data.error) {
         handleError();
