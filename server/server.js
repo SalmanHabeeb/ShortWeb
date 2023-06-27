@@ -96,8 +96,7 @@ app.get("/api/short", async (req, res) => {
   try {
     console.log(req.query.key);
     console.log(req.query.address);
-    console.log(req.clientIp);
-    let address = req.query.address;
+    let address = req.clientIp;
     const shortUrl = await urlDatabase.findOne({ short: req.query.key });
     if (shortUrl == null) return res.send({ urlNotExists: true });
 
