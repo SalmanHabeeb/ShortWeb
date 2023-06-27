@@ -95,9 +95,12 @@ function ReDirectPage() {
     }
   }
 
-  window.addEventListener
-    ? window.addEventListener("load", onWindowLoad, false)
-    : window.attachEvent && window.attachEvent("onload", onWindowLoad);
+  // window.addEventListener
+  //   ? window.addEventListener("load", onWindowLoad, false)
+  //   : window.attachEvent && window.attachEvent("onload", onWindowLoad);
+  useEffect(() => {
+    onWindowLoad();
+  }, []);
 
   return (
     <div id="Redirect">
