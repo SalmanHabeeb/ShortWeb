@@ -58,7 +58,9 @@ function ReDirectPage() {
     setVirustotalScanLink(unSafeUrlData.virustotalScanLink);
   }
 
+  console.error(getPath());
   async function onWindowLoad() {
+    console.error(getPath());
     let data = localStorage.getItem(getPath());
     if (!data) {
       data = await getMappedURL({
