@@ -4,6 +4,7 @@ import "./logout.css";
 import CircularSpinner from "../../general/circular-spinner/circular-spinner";
 import { sendLogOutRequest } from "../../lib";
 import { isLoggedIn } from "../../general/utils/utils";
+import Cookies from "js-cookie";
 
 function handleServerError() {
   if (isLoggedIn()) {
@@ -25,6 +26,8 @@ function LogOutPage() {
       handleServerError();
     } else {
       sessionStorage.removeItem("isLoggedIn");
+      Cookies.remove("token");
+      Cookies.remove("isLoggedIn");
       let logoutLink = document.createElement("a");
       logoutLink.href = "/landingPage";
       logoutLink.click();

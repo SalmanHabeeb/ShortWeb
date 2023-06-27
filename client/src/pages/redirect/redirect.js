@@ -3,6 +3,7 @@ import "./redirect.css";
 import { getPath } from "./utils";
 import { getMappedURL } from "../../lib";
 import Title from "../../general/title/title";
+import Cookies from "js-cookie";
 
 function ReDirectPage() {
   const [url, setUrl] = useState("");
@@ -65,7 +66,11 @@ function ReDirectPage() {
         await fetch(process.env.REACT_APP_GET_ADDRESS_API);
         let address = await address.json();
       } catch (error) {}
-      data = await getMappedURL({ key: getPath(), address: address.query });
+      data = await getMappedURL({
+        key: getPath(),
+        address: address.query,
+        token: Cookies.get("token"),
+      });
       if (data.error) {
         handleError();
       } else {

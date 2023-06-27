@@ -3,6 +3,7 @@ import "./profile.css";
 import NavBar from "../../general/navbar/navbar";
 import CircularSpinner from "../../general/circular-spinner/circular-spinner";
 import { updatePassword, getSelf, deleteSelf } from "../../lib";
+import Cookies from "js-cookie";
 
 function ProfilePage() {
   const [userDetails, setUserDetails] = useState({
@@ -17,7 +18,7 @@ function ProfilePage() {
 
   useEffect(() => {
     const handleWindowLoad = async () => {
-      let data = await getSelf({});
+      let data = await getSelf({ token: Cookies.get("token") });
       console.log(data);
       if (data.error) {
         handleClientError();
@@ -74,6 +75,7 @@ function ProfilePage() {
     let data = await updatePassword({
       oldPassword: oldPassword,
       newPassword: newPassword,
+      token: Cookies.get("token"),
     });
     console.log(data);
     if (data.error) {
@@ -103,7 +105,10 @@ function ProfilePage() {
   const handleDeleteProfile = async (e) => {
     // Prevent the default form submission behavior
     e.preventDefault();
-    let data = await deleteSelf({ password: deletePassword });
+    let data = await deleteSelf({
+      password: deletePassword,
+      token: Cookies.get("token"),
+    });
     if (data.error) {
       handleClientError();
     } else if (!data.data.success) {

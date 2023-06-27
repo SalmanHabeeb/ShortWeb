@@ -16,7 +16,7 @@ import LogOutPage from "./pages/logout/logout";
 function App() {
   return (
     <div className="App">
-      <script crossorigin src={serverAPI}></script>
+      <script crossOrigin={"anonymous"} src={serverAPI}></script>
       <Routes>
         <Route element={<PrivateRoute />}>
           <Route exact path="/" element={<HomePage />} />

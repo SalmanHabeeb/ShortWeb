@@ -4,6 +4,7 @@ import { getShortenedURL, postNotes } from "../../lib";
 import NavBar from "../../general/navbar/navbar";
 
 import CircularSpinner from "../../general/circular-spinner/circular-spinner";
+import Cookies from "js-cookie";
 
 function HomePage() {
   console.log(sessionStorage.getItem("isLoggedIn"));
@@ -77,7 +78,10 @@ function HomePage() {
 
   async function handleSubmit(e) {
     setIsSqueezing(true);
-    let response = await getShortenedURL(url);
+    let response = await getShortenedURL({
+      url: url,
+      token: Cookies.get("token"),
+    });
     if (response.error) {
       handleClientError();
     } else if (!response.data.shortUrl) {
@@ -122,7 +126,11 @@ function HomePage() {
     setSavingNotes(true);
     if (madeEdit) {
       setMadeEdit(false);
-      let data = await postNotes({ shortUrl: shortUrl, notes: notes });
+      let data = await postNotes({
+        shortUrl: shortUrl,
+        notes: notes,
+        token: Cookies.get("token"),
+      });
       if (data.error) {
         handleClientError();
       } else if (data.data.success === false) {

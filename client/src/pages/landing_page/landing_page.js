@@ -68,7 +68,7 @@ function LandingPage() {
 
   async function handleSubmit(e) {
     setIsSqueezing(true);
-    let response = await getShortenedURL(url);
+    let response = await getShortenedURL({ url: url });
     if (response.error) {
       handleClientError();
     } else if (!response.data.shortUrl) {

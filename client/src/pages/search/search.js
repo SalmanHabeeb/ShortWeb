@@ -5,6 +5,7 @@ import NavBar from "../../general/navbar/navbar";
 import SearchResult from "./components/search-result/search-result";
 import { getSearchResult, getSuggestions } from "../../lib";
 import CircularSpinner from "../../general/circular-spinner/circular-spinner";
+import Cookies from "js-cookie";
 
 function SearchPage() {
   const [searchItem, setSearchItem] = useState("");
@@ -70,6 +71,7 @@ function SearchPage() {
     let suggestionData = await getSuggestions({
       query: e.target.value,
       field: field,
+      token: Cookies.get("token"),
     });
     setSuggestionList(suggestionData.data.suggestions);
   }
@@ -100,6 +102,7 @@ function SearchPage() {
     let searchResultData = await getSearchResult({
       query: searchText,
       field: field,
+      token: Cookies.get("token"),
     });
     if (searchResultData.error) {
       handleClientError();

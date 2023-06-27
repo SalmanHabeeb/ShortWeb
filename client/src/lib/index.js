@@ -1,13 +1,14 @@
 import { Axios } from "../config/index.js";
 
-export async function getShortenedURL(url) {
+export async function getShortenedURL(data) {
   try {
     const res = await Axios.get("/short/create", {
-      params: { url },
+      params: data,
       crossdomain: true,
     });
     return { data: res.data, error: false };
   } catch (error) {
+    console.error(error);
     return { data: [], error: true };
   }
 }
@@ -20,6 +21,7 @@ export async function getMappedURL(data) {
     });
     return { data: res.data, error: false };
   } catch (error) {
+    console.error(error);
     return { data: [], error: true };
   }
 }
@@ -32,6 +34,7 @@ export async function makeSignUpPostRequest(data) {
     });
     return { data: res.data, error: false };
   } catch (error) {
+    console.error(error);
     return { data: [], error: true };
   }
 }
@@ -44,6 +47,7 @@ export async function makeLoginPostRequest(data) {
     });
     return { data: res.data, error: false };
   } catch (error) {
+    console.error(error);
     return { data: [], error: true };
   }
 }
@@ -56,6 +60,7 @@ export async function getSelf(data) {
     });
     return { data: res.data, error: false };
   } catch (error) {
+    console.error(error);
     return { data: [], error: true };
   }
 }
@@ -68,6 +73,7 @@ export async function updatePassword(data) {
     });
     return { data: res.data, error: false };
   } catch (error) {
+    console.error(error);
     return { data: [], error: true };
   }
 }
@@ -80,18 +86,20 @@ export async function deleteSelf(data) {
     });
     return { data: res.data, error: false };
   } catch (error) {
+    console.error(error);
     return { data: [], error: true };
   }
 }
 
-export async function sendLogOutRequest() {
+export async function sendLogOutRequest(data) {
   try {
     const res = await Axios.get("/logout", {
-      params: {},
+      params: data,
       crossdomain: true,
     });
     return { data: res.data, error: false };
   } catch (error) {
+    console.error(error);
     return { data: [], error: true };
   }
 }
@@ -104,18 +112,20 @@ export async function getUrlData(data) {
     });
     return { data: res.data, error: false };
   } catch (error) {
+    console.error(error);
     return { data: [], error: true };
   }
 }
 
-export async function verifyLogin() {
+export async function verifyLogin(data) {
   try {
     const res = await Axios.get("/login/verify", {
-      params: {},
+      params: data,
       crossdomain: true,
     });
     return { data: res.data, error: false };
   } catch (error) {
+    console.error(error);
     return { data: [], error: true };
   }
 }
@@ -128,6 +138,7 @@ export async function postNotes(data) {
     });
     return { data: res.data, error: false };
   } catch (error) {
+    console.error(error);
     return { data: [], error: true };
   }
 }
@@ -140,6 +151,7 @@ export async function getSuggestions(data) {
     });
     return { data: res.data, error: false };
   } catch (error) {
+    console.error(error);
     return { data: [], error: true };
   }
 }
@@ -152,6 +164,7 @@ export async function getSearchResult(data) {
     });
     return { data: res.data, error: false };
   } catch (error) {
+    console.error(error);
     return { data: [], error: true };
   }
 }
