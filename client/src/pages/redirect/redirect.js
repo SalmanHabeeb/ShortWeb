@@ -58,40 +58,44 @@ function ReDirectPage() {
     setVirustotalScanLink(unSafeUrlData.virustotalScanLink);
   }
 
-  window.onload = async () => {
-    let data = localStorage.getItem(getPath());
-    if (!data) {
-      data = await getMappedURL({
-        key: getPath(),
-        token: Cookies.get("token"),
-      });
-      if (data.error) {
-        handleError();
-      } else {
-        if (data.data.serverError) {
-          handleServerError();
-        } else if (data.data.isSafe === 0) {
-          console.log(data.data);
-          handleUnSafeUrl(data.data);
-        } else if (data.data.urlNotExists) {
-          handleInvalidUrl();
+  window.addEventListener(
+    "load",
+    async () => {
+      let data = localStorage.getItem(getPath());
+      if (!data) {
+        data = await getMappedURL({
+          key: getPath(),
+          token: Cookies.get("token"),
+        });
+        if (data.error) {
+          handleError();
         } else {
-          setIsSafe(data.data.isSafe);
-          setVirustotalScanLink(data.data.virustotalScanLink);
-          console.log(data.data.url);
-          setUrl(data.data.url);
-          setText("Redirecting to:");
-          setTimeout(() => {
-            if (!isCancelled.current) {
-              handleRedirect(data.data.url);
-            }
-          }, 10000);
+          if (data.data.serverError) {
+            handleServerError();
+          } else if (data.data.isSafe === 0) {
+            console.log(data.data);
+            handleUnSafeUrl(data.data);
+          } else if (data.data.urlNotExists) {
+            handleInvalidUrl();
+          } else {
+            setIsSafe(data.data.isSafe);
+            setVirustotalScanLink(data.data.virustotalScanLink);
+            console.log(data.data.url);
+            setUrl(data.data.url);
+            setText("Redirecting to:");
+            setTimeout(() => {
+              if (!isCancelled.current) {
+                handleRedirect(data.data.url);
+              }
+            }, 10000);
+          }
         }
+      } else {
+        redirectToURL(data);
       }
-    } else {
-      redirectToURL(data);
-    }
-  };
+    },
+    false
+  );
 
   return (
     <div id="Redirect">
