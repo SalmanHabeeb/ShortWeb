@@ -8,7 +8,10 @@ function getMappedURLData(url, isSafe) {
   let virustotalScanLink = `https://www.virustotal.com/gui/url/${encodedUrl}`;
   if (isSafe === -1) {
     encodedUrl = encodeURIComponent(url);
-    virustotalScanLink = `https://www.virustotal.com/gui/search/${encodedUrl}`;
+    virustotalScanLink = `https://www.virustotal.com/gui/search/${encodedUrl.replace(
+      "%",
+      "%25"
+    )}`;
   }
   return {
     url: url,
