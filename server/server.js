@@ -173,15 +173,15 @@ app.post("/api/user/delete", async (req, res) => {
       res.clearCookie("token");
       res.clearCookie("isLoggedIn");
       res.json({ success: true });
+      try {
+        let deletedUserUrls = await urlDatabase.deleteMany({ user: email });
+        console.info(deletedUserUrls.deletedCount);
+        return;
+      } catch (error) {
+        console.error(error);
+      }
     } else {
       return res.json({ success: false, serverError: true });
-    }
-    try {
-      let deletedUserUrls = await urlDatabase.deleteMany({ email: email });
-      console.info(deletedUserUrls.deletedCount);
-    } catch (error) {
-      console.error(error);
-      console.debug(error);
     }
   } catch (error) {
     console.error(error);
