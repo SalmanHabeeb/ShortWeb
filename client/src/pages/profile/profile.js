@@ -125,6 +125,9 @@ function ProfilePage() {
       }
     } else {
       alert(`User ${userDetails.email}  is successfully deleted`);
+      sessionStorage.removeItem("isLoggedIn");
+      Cookies.remove("token");
+      Cookies.remove("isLoggedIn");
       let homeLink = document.createElement("a");
       homeLink.href = "/landingPage";
       homeLink.click();
