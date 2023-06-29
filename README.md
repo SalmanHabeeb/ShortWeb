@@ -46,7 +46,6 @@ VIRUSTOTAL_API_KEY = <Your VirusTotal API key>
 
 ```
 REACT_APP_LOCAL_SERVER_API = <Local host base api url>
-REACT_APP_GET_ADDRESS_API = <Your ipapi api key>
 ```
 
 9. Start the client using `npm start`.

@@ -323,6 +323,7 @@ app.get("/api/logout", async (req, res) => {
       { $pull: { tokens: { token } } },
       { new: true }
     );
+    if (!user) return res.json({ success: true });
     // res.clearCookie("token");
     // res.clearCookie("isLoggedIn");
     res.json({ success: true });
