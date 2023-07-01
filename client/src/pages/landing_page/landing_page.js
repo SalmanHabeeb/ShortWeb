@@ -88,7 +88,7 @@ function LandingPage() {
       <div className="landing-page__url-container">
         <input
           className="landing-page__url-input"
-          type="text"
+          type="url"
           placeholder="Enter your URL here..."
           value={url}
           onChange={(e) => setUrl(e.target.value)}

@@ -164,7 +164,7 @@ function HomePage() {
           <input
             id="home__url-input"
             className="home__url-input"
-            type="text"
+            type="url"
             placeholder="Enter your URL here..."
             value={url}
             onChange={(e) => setUrl(e.target.value)}
