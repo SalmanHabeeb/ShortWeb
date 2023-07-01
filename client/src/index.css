@@ -24,6 +24,6 @@ code {
 
 @media screen and (max-width: 800px) {
   body {
-    overflow: scroll;
+    overflow-y: auto;
   }
 }
