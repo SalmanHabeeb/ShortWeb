@@ -134,10 +134,10 @@ function SearchPage() {
                 handleSearchTextChange(e);
               }}
               onKeyDown={(e) => {
-                if (e.keyCode === 13) {
+                if (e.key === "Enter") {
                   handleSearch(searchItem);
                 }
-                if (e.keyCode === 40) {
+                if (e.key === "ArrowDown") {
                   setSuggestFocus(0);
                 }
               }}
@@ -163,13 +163,13 @@ function SearchPage() {
                     onClick={() => handleSearch(item)}
                     onKeyDown={(e) => {
                       console.log(suggestFocus);
-                      if (e.keyCode === 13) {
+                      if (e.key === "Enter") {
                         handleSearch(item);
                       }
-                      if (e.keyCode === 40) {
+                      if (e.key === "ArrowDown") {
                         setSuggestFocus(idx + 1);
                       }
-                      if (e.keyCode === 38) {
+                      if (e.key === "ArrowUp") {
                         setSuggestFocus(idx - 1);
                       }
                     }}

@@ -169,7 +169,7 @@ function HomePage() {
             value={url}
             onChange={(e) => setUrl(e.target.value)}
             onKeyDown={(e) => {
-              if (e.keyCode === 13) {
+              if (e.key === "Enter") {
                 handleSubmit();
               }
             }}
@@ -241,7 +241,7 @@ function HomePage() {
                       maxLength={"100"}
                       onChange={handleChangeNotes}
                       onKeyDown={(e) => {
-                        if (e.keyCode === 13) {
+                        if (e.key === "Enter") {
                           handleClickSaveNotes();
                         }
                       }}

@@ -119,7 +119,7 @@ function SignUpPage() {
               title="The password should contain atleast one smallcase and uppercase alphabet, digit and a special character, and should be of length 8 to 16 characters"
               onChange={handlePasswordChange}
               onKeyDown={(e) => {
-                if (e.keyCode === 13) {
+                if (e.key === "Enter") {
                   handleSignUp(email, password);
                 }
               }}

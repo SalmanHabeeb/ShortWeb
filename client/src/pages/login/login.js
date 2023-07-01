@@ -111,7 +111,7 @@ function LoginPage() {
               required
               onChange={handlePasswordChange}
               onKeyDown={(e) => {
-                if (e.keyCode === 13) {
+                if (e.key === "Enter") {
                   handleSubmit(email, password);
                 }
               }}
