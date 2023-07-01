@@ -40,7 +40,11 @@ function LoginPage() {
     alert("Server is experiencing difficulties. Please try again later.");
   }
 
-  async function handleSubmit(email, password) {
+  async function handleSubmit(e) {
+    e.preventDefault();
+
+    let email = e.target.email.value;
+    let password = e.target.password.value;
     setLoggingIn(true);
     let data = await makeLoginPostRequest({
       email: email,
@@ -83,7 +87,12 @@ function LoginPage() {
   return (
     <div id="Login">
       <div className="login__container">
-        <div className="login__form">
+        <form
+          className="login__form"
+          onSubmit={(e) => {
+            handleSubmit(e);
+          }}
+        >
           <Title />
           <div className="login__input">
             <label htmlFor="email" className="login__input__label">
@@ -110,21 +119,10 @@ function LoginPage() {
               type="password"
               required
               onChange={handlePasswordChange}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  handleSubmit(email, password);
-                }
-              }}
             />
           </div>
           <div className="login-button-container">
-            <button
-              className="login-button"
-              type="none"
-              onClick={() => {
-                handleSubmit(email, password);
-              }}
-            >
+            <button className="login-button" type="submit">
               {loggingIn ? (
                 <CircularSpinner
                   size="20px"
@@ -143,7 +141,7 @@ function LoginPage() {
               Sign Up
             </a>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );

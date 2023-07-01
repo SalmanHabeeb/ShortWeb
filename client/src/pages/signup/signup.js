@@ -11,10 +11,6 @@ function SignUpPage() {
   const [signingIn, setSigningIn] = useState(false);
   console.log(Cookies.get("token"));
 
-  function getEmailPattern() {
-    return "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$";
-  }
-
   function handleEmailChange(e) {
     setEmail(e.target.value);
   }
@@ -31,11 +27,6 @@ function SignUpPage() {
       "This email is already registered. Please log in or use a different email."
     );
   }
-  function handleInvalidPassword() {
-    alert(
-      "This password is not valid. Please enter a password that has at least 8 characters, one uppercase letter, one lowercase letter and one number."
-    );
-  }
   function handleInvalidEmail() {
     alert("This email is not valid. Please enter a valid email address.");
   }
@@ -47,13 +38,15 @@ function SignUpPage() {
   function handleServerError() {
     alert("Server is experiencing difficulties. Please try again later.");
   }
-  async function handleSignUp() {
+  async function handleSignUp(e) {
+    e.preventDefault();
+    let email = e.target.email.value;
+    let password = e.target.password.value;
     setSigningIn(true);
     let data = await makeSignUpPostRequest({
       email: email,
       password: password,
     });
-    console.log(data);
     if (data.error) {
       handleSignUpError();
     } else if (data.data.isLoggedIn === null) {
@@ -90,7 +83,7 @@ function SignUpPage() {
   return (
     <div id="signup">
       <div className="signup__container">
-        <div className="signup__form">
+        <form className="signup__form" onSubmit={(e) => handleSignUp(e)}>
           <Title />
           <div className="signup__input">
             <label htmlFor="email" className="signup__input__label">
@@ -115,25 +108,14 @@ function SignUpPage() {
               className="signup__input__field"
               value={password}
               type="password"
-              pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,16}$"
-              title="The password should contain atleast one smallcase and uppercase alphabet, digit and a special character, and should be of length 8 to 16 characters"
+              // pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,16}$"
+              title="The password should contain atleast one smallcase and uppercase alphabet, and a digit, and should be of length 8 to 16 characters"
               onChange={handlePasswordChange}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  handleSignUp(email, password);
-                }
-              }}
               autoComplete="on"
             />
           </div>
           <div className="signup-button-container">
-            <button
-              className="signup-button"
-              type="none"
-              onClick={() => {
-                handleSignUp(email, password);
-              }}
-            >
+            <button className="signup-button" type="submit">
               {signingIn ? (
                 <CircularSpinner
                   size="20px"
@@ -152,7 +134,7 @@ function SignUpPage() {
               Login
             </a>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );
