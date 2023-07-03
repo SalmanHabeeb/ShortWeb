@@ -63,6 +63,8 @@ function SearchPage() {
 
   function handleFieldChange(e) {
     setField(e.target.value);
+    setShowSearchSuggestion(false);
+    document.getElementById("url-input").focus();
   }
 
   async function handleSearchTextChange(e) {

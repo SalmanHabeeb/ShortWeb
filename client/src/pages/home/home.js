@@ -206,7 +206,12 @@ function HomePage() {
                   <a href={longUrl}>{longUrl}</a>
                 </div>
                 <div className="short-url">
-                  <a href={shortUrl} target="_blank" rel="noreferrer">
+                  <a
+                    href={shortUrl}
+                    target="_blank"
+                    rel="noopener noreferrer nofollow"
+                    role="link"
+                  >
                     {shortUrl}
                   </a>
                 </div>
