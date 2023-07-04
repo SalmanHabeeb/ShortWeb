@@ -15,6 +15,8 @@ function LandingPage() {
   const [isSqueezing, setIsSqueezing] = useState(false);
 
   useEffect(() => {
+    let ele = document.getElementById("landing-page__url-input");
+    ele.focus();
     return () => {
       if (timeoutId.current) {
         clearTimeout(timeoutId.current);
@@ -87,6 +89,7 @@ function LandingPage() {
       <NavBar />
       <div className="landing-page__url-container">
         <input
+          id="landing-page__url-input"
           className="landing-page__url-input"
           type="url"
           placeholder="Enter your URL here..."

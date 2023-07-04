@@ -30,10 +30,8 @@ function HomePage() {
   }, []);
 
   useEffect(() => {
-    return () => {
-      let element = document.getElementById("home__url-input");
-      element.focus();
-    };
+    let element = document.getElementById("home__url-input");
+    element.focus();
   }, []);
 
   useEffect(() => {
