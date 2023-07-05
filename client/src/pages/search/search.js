@@ -54,7 +54,6 @@ function SearchPage() {
         urlInput.focus();
       } else {
         if (suggestFocus !== null && suggestFocus >= 0) {
-          console.log(eleList[suggestFocus]);
           eleList[suggestFocus].focus();
         }
       }
