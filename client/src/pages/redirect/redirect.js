@@ -19,6 +19,7 @@ function ReDirectPage() {
   }
 
   function handleInvalidUrl() {
+    handleCancel("");
     setText("Invalid Url");
   }
 
