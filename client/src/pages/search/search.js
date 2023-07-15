@@ -148,7 +148,7 @@ function SearchPage() {
               {suggestionList !== []
                 ? suggestionList.map((item, idx) => {
                     const parts = item.split(
-                      new RegExp(`(${searchItem})`, "gi")
+                      new RegExp(`(${searchItem.replaceAll("\\", "")})`, "gi")
                     );
                     let limit = 37;
                     if (window.matchMedia("(max-width: 600px)").matches) {

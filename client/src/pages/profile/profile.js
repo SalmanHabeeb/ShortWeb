@@ -9,7 +9,6 @@ function ProfilePage() {
   const [userDetails, setUserDetails] = useState({
     email: "",
   });
-  console.debug(userDetails);
   const [showEditPassword, setShowEditPassword] = useState(false);
   const [showDeleteProfile, setShowDeleteProfile] = useState(false);
   const [oldPassword, setOldPassword] = useState("");
