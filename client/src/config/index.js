@@ -1,4 +1,5 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 
 const isLocalHost = Boolean(
   window.location.hostname === "localhost" ||
@@ -11,6 +12,10 @@ const isLocalHost = Boolean(
 const API_URL = isLocalHost
   ? process.env.REACT_APP_LOCAL_SERVER_API
   : process.env.REACT_APP_REMOTE_SERVER_API;
+
+axios.defaults.headers.common["Authorization"] = `Bearer ${
+  Cookies.get("token") ? Cookies.get("token") : "None"
+}`;
 
 export const Axios = axios.create({
   withCredentials: true,

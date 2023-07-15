@@ -70,6 +70,7 @@ app.get("/api", async (req, res) => {
 
 app.get("/api/short/create", async (req, res) => {
   let user = null;
+  console.log(req.authorization);
   if (req.query.token) {
     user = await User.findByToken(req.query.token);
   }
@@ -94,8 +95,8 @@ app.get("/api/short/create", async (req, res) => {
 
 app.get("/api/short", async (req, res) => {
   try {
-    console.log(req.query.key);
-    console.log(req.query.address);
+    console.log(req);
+    // console.log(req.query.address);
     let address = req.clientIp;
     const shortUrl = await urlDatabase.findOne({ short: req.query.key });
     if (shortUrl == null) return res.send({ urlNotExists: true });

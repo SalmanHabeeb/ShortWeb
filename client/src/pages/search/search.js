@@ -145,53 +145,60 @@ function SearchPage() {
               autoComplete="off"
             />
             <div className="search-suggestions" ref={suggestBoxRef}>
-              {suggestionList.map((item, idx) => {
-                const parts = item.split(new RegExp(`(${searchItem})`, "gi"));
-                let limit = 37;
-                if (window.matchMedia("(max-width: 600px)").matches) {
-                  limit = 20;
-                }
-                if (parts[0].length >= limit) {
-                  parts[0] = parts[0].slice(0, limit - 6);
-                  parts[0] = parts[0] + "... ";
-                }
-                return (
-                  <div
-                    className={`${
-                      showSearchSuggestion ? "search-suggestion" : "close"
-                    }`}
-                    tabIndex={0}
-                    onClick={() => handleSearch(item)}
-                    onKeyDown={(e) => {
-                      console.log(suggestFocus);
-                      if (e.key === "Enter") {
-                        handleSearch(item);
-                      }
-                      if (e.key === "ArrowDown") {
-                        setSuggestFocus(idx + 1);
-                      }
-                      if (e.key === "ArrowUp") {
-                        setSuggestFocus(idx - 1);
-                      }
-                    }}
-                  >
-                    {parts.map((part, i) => {
-                      const match =
-                        searchItem &&
-                        part.toLowerCase() === searchItem.toLowerCase();
-                      return match ? (
-                        <span
-                          style={{ backgroundColor: "yellow", padding: "2px" }}
-                        >
-                          {part}
-                        </span>
-                      ) : (
-                        <span>{part}</span>
-                      );
-                    })}
-                  </div>
-                );
-              })}
+              {suggestionList !== []
+                ? suggestionList.map((item, idx) => {
+                    const parts = item.split(
+                      new RegExp(`(${searchItem})`, "gi")
+                    );
+                    let limit = 37;
+                    if (window.matchMedia("(max-width: 600px)").matches) {
+                      limit = 20;
+                    }
+                    if (parts[0].length >= limit) {
+                      parts[0] = parts[0].slice(0, limit - 6);
+                      parts[0] = parts[0] + "... ";
+                    }
+                    return (
+                      <div
+                        className={`${
+                          showSearchSuggestion ? "search-suggestion" : "close"
+                        }`}
+                        tabIndex={0}
+                        onClick={() => handleSearch(item)}
+                        onKeyDown={(e) => {
+                          console.log(suggestFocus);
+                          if (e.key === "Enter") {
+                            handleSearch(item);
+                          }
+                          if (e.key === "ArrowDown") {
+                            setSuggestFocus(idx + 1);
+                          }
+                          if (e.key === "ArrowUp") {
+                            setSuggestFocus(idx - 1);
+                          }
+                        }}
+                      >
+                        {parts.map((part, i) => {
+                          const match =
+                            searchItem &&
+                            part.toLowerCase() === searchItem.toLowerCase();
+                          return match ? (
+                            <span
+                              style={{
+                                backgroundColor: "yellow",
+                                padding: "2px",
+                              }}
+                            >
+                              {part}
+                            </span>
+                          ) : (
+                            <span>{part}</span>
+                          );
+                        })}
+                      </div>
+                    );
+                  })
+                : null}
             </div>
           </div>
           <button
