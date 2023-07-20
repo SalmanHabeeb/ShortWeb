@@ -69,6 +69,7 @@ function LandingPage() {
   }
 
   async function handleSubmit(e) {
+    e.preventDefault();
     setIsSqueezing(true);
     let response = await getShortenedURL({ url: url });
     if (response.error) {
@@ -87,7 +88,10 @@ function LandingPage() {
   return (
     <div id="LandingPage">
       <NavBar />
-      <div className="landing-page__url-container">
+      <form
+        className="landing-page__url-container"
+        onSubmit={(e) => handleSubmit(e)}
+      >
         <input
           id="landing-page__url-input"
           className="landing-page__url-input"
@@ -95,13 +99,8 @@ function LandingPage() {
           placeholder="Enter your URL here..."
           value={url}
           onChange={(e) => setUrl(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              handleSubmit();
-            }
-          }}
         />
-        <button className="landing-page__submit-button" onClick={handleSubmit}>
+        <button className="landing-page__submit-button" type="submit">
           {isSqueezing ? (
             <CircularSpinner
               size="20px"
@@ -113,7 +112,7 @@ function LandingPage() {
             "Squeeze"
           )}
         </button>
-      </div>
+      </form>
       <div className="data">
         {urlContainer.current ? (
           <div className="data-url">
@@ -122,7 +121,7 @@ function LandingPage() {
           </div>
         ) : null}
         {urlContainer.current &&
-          urlObjects.reverse().map((item, idx) => (
+          [...urlObjects].reverse().map((item, idx) => (
             <div className="data-url" key={item.shortened}>
               <div className="long-url">
                 <a href={item.url}>{item.url}</a>

@@ -75,6 +75,7 @@ function HomePage() {
   }
 
   async function handleSubmit(e) {
+    e.preventDefault();
     setIsSqueezing(true);
     let response = await getShortenedURL({
       url: url,
@@ -158,7 +159,12 @@ function HomePage() {
     <div id="HomePage">
       <NavBar />
       <div className="home-container">
-        <div className="home__url-container">
+        <form
+          className="home__url-container"
+          onSubmit={(e) => {
+            handleSubmit(e);
+          }}
+        >
           <input
             id="home__url-input"
             className="home__url-input"
@@ -166,17 +172,13 @@ function HomePage() {
             placeholder="Enter your URL here..."
             value={url}
             onChange={(e) => setUrl(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                handleSubmit();
-              }
-            }}
             autoComplete="off"
+            title="Please enter a valid url"
           />
           <button
             id="home__submit-button"
             className="home__submit-button"
-            onClick={handleSubmit}
+            type="submit"
           >
             {isSqueezing ? (
               <CircularSpinner
@@ -189,7 +191,7 @@ function HomePage() {
               "Squeeze"
             )}
           </button>
-        </div>
+        </form>
         <div className="data">
           {urlContainer.current ? (
             <div className="data-url">
