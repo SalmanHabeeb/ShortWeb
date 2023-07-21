@@ -69,6 +69,7 @@
   color: black;
   overflow: hidden;
   text-overflow: ellipsis;
+  cursor: pointer;
 }
 
 .search-suggestion:hover {
