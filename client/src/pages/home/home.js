@@ -4,7 +4,6 @@ import { getShortenedURL, postNotes } from "../../lib";
 import NavBar from "../../general/navbar/navbar";
 
 import CircularSpinner from "../../general/circular-spinner/circular-spinner";
-import Cookies from "js-cookie";
 
 function HomePage() {
   console.log(sessionStorage.getItem("isLoggedIn"));

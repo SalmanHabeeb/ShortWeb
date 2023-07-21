@@ -152,6 +152,7 @@ app.get("/api/short", async (req, res) => {
 app.get("/api/user", async (req, res) => {
   try {
     let token = getTokenFromRequest(req);
+    console.debug(token, req);
     if (!token) {
       return res.json({ userData: null, notLoggedIn: true });
     }
