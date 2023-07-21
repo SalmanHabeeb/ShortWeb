@@ -64,6 +64,14 @@ function deleteExpiredTokens() {
 
 cron.schedule("0 0 * * *", deleteExpiredTokens);
 
+function getTokenFromRequest(req) {
+  return req.headers.authorization
+    ? req.headers.authorization.slice(7).length > 10
+      ? req.headers.authorization.slice(7)
+      : null
+    : null;
+}
+
 app.get("/api", async (req, res) => {
   res.json({ message: "Hello World" });
 });
@@ -71,8 +79,9 @@ app.get("/api", async (req, res) => {
 app.get("/api/short/create", async (req, res) => {
   let user = null;
   console.log(req.authorization);
-  if (req.query.token) {
-    user = await User.findByToken(req.query.token);
+  let token = getTokenFromRequest(req);
+  if (token) {
+    user = await User.findByToken(token);
   }
   if (user === null) {
     user = "Anonymous";
@@ -94,13 +103,13 @@ app.get("/api/short/create", async (req, res) => {
 });
 
 app.get("/api/short", async (req, res) => {
-  res.cookie("testCookie", "I am here", {
-    maxAge: 30 * 24 * 60 * 60 * 1000,
-    httpOnly: true,
-    secure: true,
-    sameSite: "None",
-    domain: ".onrender.com",
-  });
+  // res.cookie("testCookie", "I am here", {
+  //   maxAge: 30 * 24 * 60 * 60 * 1000,
+  //   httpOnly: true,
+  //   secure: true,
+  //   sameSite: "None",
+  //   domain: ".onrender.com",
+  // });
   try {
     console.log(req);
     // console.log(req.query.address);
@@ -143,7 +152,7 @@ app.get("/api/short", async (req, res) => {
 
 app.get("/api/user", async (req, res) => {
   try {
-    let token = req.query.token;
+    let token = getTokenFromRequest(req);
     if (!token) {
       return res.json({ userData: null, notLoggedIn: true });
     }
@@ -310,10 +319,11 @@ app.post("/api/login", async (req, res) => {
 });
 
 app.get("/api/login/verify", async (req, res) => {
-  if (!req.query.token) {
+  let token = getTokenFromRequest(req);
+  if (!token) {
     return res.json({ loggedIn: false });
   }
-  let user = await User.findByToken(req.query.token);
+  let user = await User.findByToken(token);
   if (user === null) {
     res.clearCookie("token");
     res.clearCookie("isLoggedIn");
@@ -325,7 +335,7 @@ app.get("/api/login/verify", async (req, res) => {
 
 app.get("/api/logout", async (req, res) => {
   try {
-    let token = req.query.token;
+    let token = getTokenFromRequest(req);
     const user = await User.findOneAndUpdate(
       { "tokens.token": token },
       { $pull: { tokens: { token } } },
@@ -341,13 +351,14 @@ app.get("/api/logout", async (req, res) => {
 
 app.get("/api/notes/edit", async (req, res) => {
   try {
-    if (!req.query.token) {
+    let token = getTokenFromRequest(req);
+    if (!token) {
       return res.json({ success: false, notAuthorized: true });
     }
     console.debug(req.query);
     let { shortUrl, notes } = req.query;
     shortUrl = shortUrl.split("/").pop();
-    let user = await User.findByToken(req.query.token);
+    let user = await User.findByToken(token);
     if (user === null) {
       return res.json({ success: false, notAuthorized: true });
     }
@@ -371,10 +382,11 @@ app.get("/api/notes/edit", async (req, res) => {
 
 app.get("/api/search/results", async (req, res) => {
   try {
-    if (!req.query.token) {
+    let token = getTokenFromRequest(req);
+    if (!token) {
       return res.json({ userNotExists: true });
     }
-    const user = await User.findByToken(req.query.token);
+    const user = await User.findByToken(token);
     if (user === null) {
       return res.json({ notAuthorized: true });
     }
@@ -524,7 +536,7 @@ app.get("/api/search/suggestions", async (req, res) => {
 
 app.get("/api/data/short", async (req, res) => {
   try {
-    const token = req.query.token;
+    const token = getTokenFromRequest(req);
     if (!token) {
       return res.json({ notLoggedIn: true });
     }

@@ -17,7 +17,7 @@ function ProfilePage() {
 
   useEffect(() => {
     const handleWindowLoad = async () => {
-      let data = await getSelf({ token: Cookies.get("token") });
+      let data = await getSelf({});
       console.log(data);
       if (data.error) {
         handleClientError();

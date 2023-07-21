@@ -72,7 +72,6 @@ function SearchPage() {
     let suggestionData = await getSuggestions({
       query: e.target.value,
       field: field,
-      token: Cookies.get("token"),
     });
     setSuggestionList(suggestionData.data.suggestions);
   }
@@ -103,7 +102,6 @@ function SearchPage() {
     let searchResultData = await getSearchResult({
       query: searchText,
       field: field,
-      token: Cookies.get("token"),
     });
     if (searchResultData.error) {
       handleClientError();

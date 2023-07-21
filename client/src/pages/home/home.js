@@ -79,7 +79,6 @@ function HomePage() {
     setIsSqueezing(true);
     let response = await getShortenedURL({
       url: url,
-      token: Cookies.get("token"),
     });
     if (response.error) {
       handleClientError();
