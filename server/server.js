@@ -99,7 +99,7 @@ app.get("/api/short", async (req, res) => {
     httpOnly: true,
     secure: true,
     sameSite: "None",
-    domain: ".vercel.app",
+    domain: ".onrender.com",
   });
   try {
     console.log(req);
@@ -581,5 +581,3 @@ io.on("connection", async (socket) => {
 server.listen(port, () => {
   console.log(`Listening on port: ${port}`);
 });
-
-module.exports = server;
