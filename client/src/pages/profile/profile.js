@@ -74,7 +74,6 @@ function ProfilePage() {
     let data = await updatePassword({
       oldPassword: oldPassword,
       newPassword: newPassword,
-      token: Cookies.get("token"),
     });
     console.log(data);
     if (data.error) {

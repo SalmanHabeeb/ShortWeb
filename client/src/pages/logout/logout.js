@@ -21,7 +21,7 @@ function LogOutPage() {
 
   async function handleLogOut() {
     sessionStorage.removeItem("isLoggedIn");
-    let data = await sendLogOutRequest({ token: Cookies.get("token") });
+    let data = await sendLogOutRequest({});
     if (data.data.serverError) {
       handleServerError();
     } else {

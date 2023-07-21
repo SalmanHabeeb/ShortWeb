@@ -169,7 +169,7 @@ app.get("/api/user", async (req, res) => {
 
 app.post("/api/user/delete", async (req, res) => {
   try {
-    let token = req.body.params.token;
+    let token = getTokenFromRequest(req);
     if (!token) {
       return res.json({ success: false, notLoggedIn: true });
     }
@@ -208,7 +208,7 @@ app.post("/api/user/delete", async (req, res) => {
 
 app.post("/api/password", async (req, res) => {
   try {
-    const { oldPassword, newPassword, token } = req.body.params;
+    const { oldPassword, newPassword, token } = getTokenFromRequest(req);
     if (!token) {
       console.log("159");
       return res.json({ success: false, notLoggedIn: true });
@@ -243,7 +243,8 @@ app.post("/api/password", async (req, res) => {
 
 app.post("/api/signup", async (req, res) => {
   try {
-    const { email, password, token } = req.body.params;
+    const { email, password } = req.body.params;
+    const token = getTokenFromRequest(req);
     console.log(email, password);
     const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
@@ -285,7 +286,8 @@ app.post("/api/signup", async (req, res) => {
 
 app.post("/api/login", async (req, res) => {
   try {
-    const { email, password, token } = req.body.params;
+    const { email, password } = req.body.params;
+    const token = getTokenFromRequest(req);
 
     let user = await User.findOne({ email: email });
     if (user === null) {
