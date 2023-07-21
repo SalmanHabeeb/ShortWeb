@@ -99,6 +99,7 @@ function LandingPage() {
           placeholder="Enter your URL here..."
           value={url}
           onChange={(e) => setUrl(e.target.value)}
+          autoComplete="off"
         />
         <button className="landing-page__submit-button" type="submit">
           {isSqueezing ? (
