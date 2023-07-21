@@ -127,7 +127,6 @@ function HomePage() {
       let data = await postNotes({
         shortUrl: shortUrl,
         notes: notes,
-        token: Cookies.get("token"),
       });
       if (data.error) {
         handleClientError();

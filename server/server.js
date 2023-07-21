@@ -78,7 +78,6 @@ app.get("/api", async (req, res) => {
 
 app.get("/api/short/create", async (req, res) => {
   let user = null;
-  console.log(req.authorization);
   let token = getTokenFromRequest(req);
   if (token) {
     user = await User.findByToken(token);
@@ -208,7 +207,8 @@ app.post("/api/user/delete", async (req, res) => {
 
 app.post("/api/password", async (req, res) => {
   try {
-    const { oldPassword, newPassword, token } = getTokenFromRequest(req);
+    const { oldPassword, newPassword } = req.body.params;
+    const token = getTokenFromRequest(req);
     if (!token) {
       console.log("159");
       return res.json({ success: false, notLoggedIn: true });
@@ -461,10 +461,7 @@ app.get("/api/search/results", async (req, res) => {
 
 app.get("/api/search/suggestions", async (req, res) => {
   try {
-    let token =
-      req.headers.authorization.length > 15
-        ? req.headers.authorization.slice(7)
-        : null;
+    let token = getTokenFromRequest(req);
     if (!token) {
       return res.json({ notAuthorized: true });
     }
