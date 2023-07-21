@@ -141,14 +141,12 @@ function ProfilePage() {
               {/* Display the email field */}
               <div className="user-details__email-container">
                 <p className="user-details__email-label">Email:</p>
-                {userDetails.email !== "" ? (
-                  <input
-                    className="user-details__email-display"
-                    type="email"
-                    defaultValue={userDetails.email}
-                    disabled
-                  />
-                ) : null}
+                <input
+                  className="user-details__email-display"
+                  type="email"
+                  defaultValue={userDetails.email}
+                  disabled
+                />
               </div>
               {/* Add a button to show the edit password form */}
               <div className="user-details__password-container">
@@ -202,7 +200,12 @@ function ProfilePage() {
                 </div>
               </div>
             </div>
-            <div className="delete-account">
+            <div
+              className="delete-account"
+              style={{
+                backgroundColor: showDeleteProfile ? "#3b3838" : "transparent",
+              }}
+            >
               <div className="delete-account__button-container">
                 {!showDeleteProfile ? (
                   <button onClick={() => setShowDeleteProfile(true)}>

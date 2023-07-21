@@ -94,8 +94,8 @@
   gap: 10px;
 }
 
-.edit-password-container label {
-}
+/* .edit-password-container label {
+} */
 
 .user-details input {
   width: calc(100% - 120px);
@@ -140,10 +140,11 @@
   width: 80%;
   margin: 10px;
   padding: 10px;
+
+  border-radius: 10px;
 }
 
 .delete-account__button-container {
-  margin: 10px;
   width: 100%;
   display: flex;
   align-items: center;
