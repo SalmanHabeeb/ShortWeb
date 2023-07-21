@@ -14,7 +14,7 @@ const API_URL = isLocalHost
   : process.env.REACT_APP_REMOTE_SERVER_API;
 
 axios.defaults.headers.common["Authorization"] = `Bearer ${
-  Cookies.get("token") ? Cookies.get("token") : "None"
+  localStorage.getItem("token") ? localStorage.getItem("token") : "None"
 }`;
 
 export const Axios = axios.create({

@@ -105,7 +105,6 @@ function ProfilePage() {
     e.preventDefault();
     let data = await deleteSelf({
       password: deletePassword,
-      token: Cookies.get("token"),
     });
     if (data.error) {
       handleClientError();
