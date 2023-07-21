@@ -249,8 +249,17 @@ app.post("/api/signup", async (req, res) => {
     console.log(email, password);
     const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+
     const validEmail = emailPattern.test(email);
     const validPassword = passwordPattern.test(password);
+
+    if (validEmail) {
+      let findOne = await User.findOne({ email: email });
+      if (findOne !== null) {
+        return res.json({ isLoggedIn: null, userExists: true });
+      }
+    }
+
     if (!validEmail || !validPassword) {
       return res.json({
         isLoggedIn: null,
@@ -258,10 +267,7 @@ app.post("/api/signup", async (req, res) => {
         invalidPassword: !validPassword,
       });
     }
-    let findOne = await User.findOne({ email: email });
-    if (findOne !== null) {
-      return res.json({ isLoggedIn: null, userExists: true });
-    }
+
     const user = new User({ email: email, password: password });
     await user.save();
     const tokenData = await user.generateAuthToken();
