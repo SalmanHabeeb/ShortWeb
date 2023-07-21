@@ -94,6 +94,13 @@ app.get("/api/short/create", async (req, res) => {
 });
 
 app.get("/api/short", async (req, res) => {
+  res.cookie("testCookie", "I am here", {
+    maxAge: 30 * 24 * 60 * 60 * 1000,
+    httpOnly: true,
+    secure: true,
+    sameSite: "None",
+    domain: ".onrender.com",
+  });
   try {
     console.log(req);
     // console.log(req.query.address);
