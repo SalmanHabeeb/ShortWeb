@@ -99,7 +99,7 @@ app.get("/api/short", async (req, res) => {
     httpOnly: true,
     secure: true,
     sameSite: "None",
-    domain: ".onrender.com",
+    domain: ".vercel.app",
   });
   try {
     console.log(req);
@@ -447,10 +447,14 @@ app.get("/api/search/results", async (req, res) => {
 
 app.get("/api/search/suggestions", async (req, res) => {
   try {
-    if (!req.query.token) {
+    let token =
+      req.headers.authorization.length > 15
+        ? req.headers.authorization.slice(7)
+        : null;
+    if (!token) {
       return res.json({ notAuthorized: true });
     }
-    const user = await User.findByToken(req.query.token);
+    const user = await User.findByToken(token);
     if (user === null) {
       return res.json({ notAuthorized: true });
     }
@@ -577,3 +581,5 @@ io.on("connection", async (socket) => {
 server.listen(port, () => {
   console.log(`Listening on port: ${port}`);
 });
+
+module.exports = server;
