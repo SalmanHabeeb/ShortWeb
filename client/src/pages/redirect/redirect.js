@@ -3,6 +3,7 @@ import "./redirect.css";
 import { getPath } from "./utils";
 import { getMappedURL } from "../../lib";
 import Title from "../../general/title/title";
+import Cookies from "js-cookie";
 
 function ReDirectPage() {
   const [url, setUrl] = useState("");
@@ -63,6 +64,7 @@ function ReDirectPage() {
     if (!data) {
       data = await getMappedURL({
         key: getPath(),
+        token: Cookies.get("token"),
       });
       if (data.error) {
         handleError();

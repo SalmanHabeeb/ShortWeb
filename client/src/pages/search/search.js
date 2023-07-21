@@ -5,6 +5,7 @@ import NavBar from "../../general/navbar/navbar";
 import SearchResult from "./components/search-result/search-result";
 import { getSearchResult, getSuggestions } from "../../lib";
 import CircularSpinner from "../../general/circular-spinner/circular-spinner";
+import Cookies from "js-cookie";
 
 function SearchPage() {
   const [searchItem, setSearchItem] = useState("");
