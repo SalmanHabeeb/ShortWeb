@@ -167,7 +167,7 @@ function HomePage() {
             value={url}
             onChange={(e) => setUrl(e.target.value)}
             autoComplete="off"
-            title="Please enter a valid url"
+            required
           />
           <button
             id="home__submit-button"

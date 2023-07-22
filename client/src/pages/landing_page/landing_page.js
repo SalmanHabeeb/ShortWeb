@@ -100,6 +100,7 @@ function LandingPage() {
           value={url}
           onChange={(e) => setUrl(e.target.value)}
           autoComplete="off"
+          required
         />
         <button className="landing-page__submit-button" type="submit">
           {isSqueezing ? (
