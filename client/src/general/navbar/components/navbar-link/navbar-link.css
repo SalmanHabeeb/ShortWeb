@@ -1,0 +1,20 @@
+.navbar-link__url {
+  display: inline-block;
+  color: #ccc;
+
+  width: 70px;
+  height: 40px;
+  line-height: 40px;
+  cursor: pointer;
+}
+
+.navbar-link__url:hover {
+  background-color: #333;
+}
+
+@media only screen and (max-width: 800px) {
+  .navbar-link__url {
+    width: 100vw;
+    height: fit-content;
+  }
+}

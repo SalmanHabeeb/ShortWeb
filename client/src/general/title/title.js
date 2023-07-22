@@ -11,7 +11,9 @@ function Title() {
     >
       <span className="first">Short</span>
       <span className="second">Web</span>
-      <a id="link-to-home" href="/"></a>
+      <a id="link-to-home" style={{ display: "none" }} href="/">
+        Home
+      </a>
     </div>
   );
 }

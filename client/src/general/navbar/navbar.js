@@ -3,6 +3,8 @@ import "./navbar.css";
 
 import Title from "../title/title";
 import { isLoggedIn } from "../utils/utils";
+import NavBarLink from "./components/navbar-link/navbar-link";
+import LoginButton from "./components/login-button/login-button";
 
 function NavBar() {
   const [showMenu, setShowMenu] = useState(false);
@@ -16,26 +18,22 @@ function NavBar() {
     handleWindowLoad();
   }, [loggedIn]);
 
+  window.onresize = async () => {
+    let w = window.outerWidth;
+    let h = window.outerHeight;
+    if (w > 800 && h > 400) {
+      setShowMenu(false);
+    }
+  };
+
   function handleMenuClick() {
-    setShowMenu(!showMenu);
-  }
-
-  function handleHomeClick() {
-    let searchLink = document.createElement("a");
-    searchLink.href = "/";
-    searchLink.click();
-  }
-
-  function handleSearchClick() {
-    let searchLink = document.createElement("a");
-    searchLink.href = "/search";
-    searchLink.click();
-  }
-
-  function handleProfileClick() {
-    let searchLink = document.createElement("a");
-    searchLink.href = "/profile";
-    searchLink.click();
+    let w = window.outerWidth;
+    let h = window.outerHeight;
+    if (w > 800 && h > 800) {
+      setShowMenu(false);
+    } else {
+      setShowMenu(!showMenu);
+    }
   }
 
   return (
@@ -53,52 +51,18 @@ function NavBar() {
           </button>
         </div>
         <div className={showMenu ? "navbar__show_urls" : "navbar__urls"}>
-          {loggedIn ? (
-            <div
-              className="navbar__url"
-              onClick={() => {
-                handleHomeClick();
-              }}
-            >
-              Home
-            </div>
-          ) : null}
-          {loggedIn ? (
-            <div
-              className="navbar__url"
-              onClick={() => {
-                handleSearchClick();
-              }}
-            >
-              Search
-            </div>
-          ) : null}
-          {loggedIn ? (
-            <div
-              className="navbar__url"
-              onClick={() => {
-                handleProfileClick();
-              }}
-            >
-              Profile
-            </div>
-          ) : null}
-          <button
-            className="navbar__login-button"
-            onClick={() => {
-              document.getElementById("navbar-button").click();
-            }}
-          >
-            {!loggedIn ? (
-              <a id="navbar-button" href="/login">
-                Login
-              </a>
-            ) : (
-              <a id="navbar-button" href="/logout">
-                Log Out
-              </a>
-            )}
-          </button>
+          <NavBarLink loggedIn={loggedIn} linkText={"Home"} link={"/"} />
+          <NavBarLink
+            loggedIn={loggedIn}
+            linkText={"Search"}
+            link={"/search"}
+          />
+          <NavBarLink
+            loggedIn={loggedIn}
+            linkText={"Profile"}
+            link={"/profile"}
+          />
+          <LoginButton loggedIn={loggedIn} />
         </div>
       </div>
     </div>
