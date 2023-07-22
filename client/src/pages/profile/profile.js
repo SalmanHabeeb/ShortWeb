@@ -15,6 +15,7 @@ function ProfilePage() {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [deletePassword, setDeletePassword] = useState("");
+  const [deleteAccountText, setDeleteAccountText] = useState("");
 
   useEffect(() => {
     const handleWindowLoad = async () => {
@@ -235,6 +236,18 @@ function ProfilePage() {
                         }
                         title="Password must contain atleast 8 characters, atleast 1 digit, 1 uppercase,
                           1 lower case and no special characters"
+                        required
+                      />
+                      <label htmlFor="delete-account-text">
+                        Enter the text "delete my account":
+                      </label>
+                      <input
+                        id="delete-account-text"
+                        value={deleteAccountText}
+                        onChange={(e) => setDeleteAccountText(e.target.value)}
+                        autoComplete="off"
+                        pattern={"delete my account"}
+                        title='"delete my account"'
                         required
                       />
                     </div>
