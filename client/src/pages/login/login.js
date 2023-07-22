@@ -102,9 +102,10 @@ function LoginPage() {
               className="login__input__field"
               value={email}
               type="email"
-              required
               onChange={handleEmailChange}
+              pattern={"^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$"}
               title="Enter a valid email"
+              required
             />
           </div>
           <div className="login__input">
@@ -116,8 +117,11 @@ function LoginPage() {
               className="login__input__field"
               value={password}
               type="password"
-              required
               onChange={handlePasswordChange}
+              pattern={"^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$"}
+              title="Password must contain atleast 8 characters, atleast 1 digit, 1 uppercase,
+                1 lower case and no special characters"
+              required
             />
           </div>
           <div className="login-button-container">

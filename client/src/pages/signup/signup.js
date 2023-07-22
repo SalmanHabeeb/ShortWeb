@@ -92,9 +92,11 @@ function SignUpPage() {
               className="signup__input__field"
               value={email}
               type="email"
-              required
               onChange={handleEmailChange}
               autoComplete="on"
+              pattern={"^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$"}
+              title="Enter a valid email"
+              required
             />
           </div>
           <div className="signup__input">
@@ -106,10 +108,12 @@ function SignUpPage() {
               className="signup__input__field"
               value={password}
               type="password"
-              // pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,16}$"
-              title="The password should contain atleast one smallcase and uppercase alphabet, and a digit, and should be of length 8 to 16 characters"
               onChange={handlePasswordChange}
               autoComplete="on"
+              pattern={"^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$"}
+              title="Password must contain atleast 8 characters, atleast 1 digit, 1 uppercase,
+                1 lower case and no special characters"
+              required
             />
           </div>
           <div className="signup-button-container">

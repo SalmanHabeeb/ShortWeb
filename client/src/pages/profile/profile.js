@@ -167,6 +167,11 @@ function ProfilePage() {
                           id="old-password"
                           value={oldPassword}
                           onChange={(e) => setOldPassword(e.target.value)}
+                          pattern={
+                            "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$"
+                          }
+                          title="Password must contain atleast 8 characters, atleast 1 digit, 1 uppercase,
+                          1 lower case and no special characters"
                           required
                         />
                       </div>
@@ -177,6 +182,11 @@ function ProfilePage() {
                           id="new-password"
                           value={newPassword}
                           onChange={(e) => setNewPassword(e.target.value)}
+                          pattern={
+                            "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$"
+                          }
+                          title="Password must contain atleast 8 characters, atleast 1 digit, 1 uppercase,
+                          1 lower case and no special characters"
                           required
                         />
                       </div>
@@ -220,8 +230,12 @@ function ProfilePage() {
                         id="delete-password"
                         value={deletePassword}
                         onChange={(e) => setDeletePassword(e.target.value)}
+                        pattern={
+                          "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$"
+                        }
+                        title="Password must contain atleast 8 characters, atleast 1 digit, 1 uppercase,
+                          1 lower case and no special characters"
                         required
-                        autoComplete="off"
                       />
                     </div>
                     <div className="delete-account__helper-buttons">
