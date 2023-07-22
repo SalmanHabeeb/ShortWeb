@@ -5,6 +5,8 @@ import { makeSignUpPostRequest } from "../../lib";
 import CircularSpinner from "../../general/circular-spinner/circular-spinner";
 import Cookies from "js-cookie";
 
+import * as errorMessages from "../../general/utils/error_messages";
+
 function SignUpPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -19,24 +21,20 @@ function SignUpPage() {
     setPassword(e.target.value);
   }
 
-  function handleSignUpError() {
-    alert("Something went wrong. Please try again later.");
+  function handleClientError() {
+    errorMessages.displayClientErrorMessage();
   }
   function handleUserExists() {
-    alert(
-      "This email is already registered. Please log in or use a different email."
-    );
+    errorMessages.displayUserExistsMessage();
   }
   function handleInvalidEmail() {
-    alert("This email is not valid. Please enter a valid email address.");
+    errorMessages.displayInvalidEmailMessage();
   }
   function handleInvalidPassword() {
-    alert(
-      "This password is not valid. Please enter a password that has at least 8 characters, one uppercase letter, one lowercase letter and one number."
-    );
+    errorMessages.displayInvalidNewPasswordMessage();
   }
   function handleServerError() {
-    alert("Server is experiencing difficulties. Please try again later.");
+    errorMessages.displayServerErrorMessage();
   }
   async function handleSignUp(e) {
     e.preventDefault();
@@ -48,7 +46,7 @@ function SignUpPage() {
       password: password,
     });
     if (data.error) {
-      handleSignUpError();
+      handleClientError();
     } else if (data.data.isLoggedIn === null) {
       if (data.data.userExists) {
         handleUserExists();

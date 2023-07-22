@@ -6,9 +6,11 @@ import { sendLogOutRequest } from "../../lib";
 import { isLoggedIn } from "../../general/utils/utils";
 import Cookies from "js-cookie";
 
+import * as errorMessages from "../../general/utils/error_messages";
+
 function handleServerError() {
   if (isLoggedIn()) {
-    alert("Server is currently facing difficulties. Please try again later");
+    errorMessages.displayServerErrorMessage();
   } else {
     sessionStorage.removeItem("isLoggedIn");
     let logoutLink = document.createElement("a");
@@ -22,7 +24,9 @@ function LogOutPage() {
   async function handleLogOut() {
     sessionStorage.removeItem("isLoggedIn");
     let data = await sendLogOutRequest({});
-    if (data.data.serverError) {
+    if (data.error) {
+      errorMessages.displayClientErrorMessage();
+    } else if (data.data.serverError) {
       handleServerError();
     } else {
       sessionStorage.removeItem("isLoggedIn");

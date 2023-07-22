@@ -4,6 +4,7 @@ import NavBar from "../../general/navbar/navbar";
 import CircularSpinner from "../../general/circular-spinner/circular-spinner";
 import { updatePassword, getSelf, deleteSelf } from "../../lib";
 import Cookies from "js-cookie";
+import * as errorMessages from "../../general/utils/error_messages";
 
 function ProfilePage() {
   const [userDetails, setUserDetails] = useState({
@@ -40,13 +41,11 @@ function ProfilePage() {
   }, []);
 
   function handleClientError() {
-    alert(
-      "Something went wrong. Check your internet connection and try again later."
-    );
+    errorMessages.displayClientErrorMessage();
   }
 
   function handleServerError() {
-    alert("Server is experiencing difficulties. Please try again later.");
+    errorMessages.displayServerErrorMessage();
   }
 
   function handleNotLoggedIn() {
@@ -54,17 +53,15 @@ function ProfilePage() {
   }
 
   function handleInvalidUser() {
-    alert("You are not logged in. Clear cookies and login again.");
+    errorMessages.displayInvalidUserMessage();
   }
 
   function handlePasswordNotMatch() {
-    alert("Your password is incorrect");
+    errorMessages.displayPasswordNotMatchMessage();
   }
 
   function handleInvalidNewPassword() {
-    alert(
-      "New Password doesn't meet the criteria(atleast one lowercase charecter, one uppercase charecter, and one digit, with minimum length of 8)"
-    );
+    errorMessages.displayInvalidNewPasswordMessage();
   }
 
   async function handleChangePassword(e) {

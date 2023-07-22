@@ -4,6 +4,7 @@ import "./login.css";
 import Title from "../../general/title/title";
 import { makeLoginPostRequest } from "../../lib";
 import CircularSpinner from "../../general/circular-spinner/circular-spinner";
+import * as errorMessages from "../../general/utils/error_messages";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
@@ -18,26 +19,24 @@ function LoginPage() {
     setPassword(e.target.value);
   }
 
-  function handleLoginError() {
-    alert("Something went wrong. Please try again later.");
+  function handleClientError() {
+    errorMessages.displayClientErrorMessage();
   }
 
   function handleInvalidEmail() {
-    alert("This email is not valid. Please enter a valid email address.");
+    errorMessages.displayInvalidEmailMessage();
   }
 
   function handleInvalidPassword() {
-    alert("This password is not valid. Please enter the correct password.");
+    errorMessages.displayPasswordNotMatchMessage();
   }
 
   function handleUserNotExists() {
-    alert(
-      "This email is not registered. Please sign up or use a different email."
-    );
+    errorMessages.displayUserNotExistsMessage();
   }
 
   function handleServerError() {
-    alert("Server is experiencing difficulties. Please try again later.");
+    errorMessages.displayServerErrorMessage();
   }
 
   async function handleSubmit(e) {
@@ -52,7 +51,7 @@ function LoginPage() {
     });
     console.log(data);
     if (data.error) {
-      handleLoginError();
+      handleClientError();
     } else if (data.data.isLoggedIn === null) {
       if (data.data.invalidEmail) {
         handleInvalidEmail();

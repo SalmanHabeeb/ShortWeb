@@ -5,6 +5,8 @@ import NavBar from "../../general/navbar/navbar";
 import CircularSpinner from "../../general/circular-spinner/circular-spinner";
 import { isLoggedIn } from "../../general/utils/utils";
 
+import * as errorMessages from "../../general/utils/error_messages";
+
 function LandingPage() {
   isLoggedIn().then((data) => console.log(data));
   const [url, setUrl] = useState("");
@@ -49,18 +51,16 @@ function LandingPage() {
   }
 
   function handleClientError() {
-    alert(
-      "Something went wrong. Please check your internet connection and try again."
-    );
+    errorMessages.displayClientErrorMessage();
   }
 
   function handleServerError() {
-    alert("Something went wrong on our end. Please try again later.");
+    errorMessages.displayServerErrorMessage();
   }
 
   function handleInValidResponse() {
     console.log("invalid response");
-    alert("Invalid url");
+    alert("This url doesn't exist anymore");
   }
 
   function handleValidResponse(data) {

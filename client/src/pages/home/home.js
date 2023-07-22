@@ -4,6 +4,7 @@ import { getShortenedURL, postNotes } from "../../lib";
 import NavBar from "../../general/navbar/navbar";
 
 import CircularSpinner from "../../general/circular-spinner/circular-spinner";
+import * as errorMessages from "../../general/utils/error_messages";
 
 function HomePage() {
   console.log(sessionStorage.getItem("isLoggedIn"));
@@ -63,7 +64,7 @@ function HomePage() {
 
   function handleInValidResponse() {
     console.debug("invalid response");
-    alert("Invalid url");
+    errorMessages.displayInvalidURLMessage();
   }
 
   function handleValidResponse(data) {
@@ -98,19 +99,15 @@ function HomePage() {
   }
 
   function handleClientError() {
-    alert(
-      "Something went wrong. Please check your internet connection and try again."
-    );
+    errorMessages.displayClientErrorMessage();
   }
 
   function handleServerError() {
-    alert("Something went wrong on our end. Please try again later.");
+    errorMessages.displayServerErrorMessage();
   }
 
   function handleNotAuthorized() {
-    alert(
-      "You are not authorized to save notes for this URL. Please login again."
-    );
+    errorMessages.displayNotAuthorizedMessage();
   }
 
   function handleUrlNotExists() {

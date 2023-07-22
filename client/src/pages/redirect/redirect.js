@@ -4,6 +4,8 @@ import { getPath } from "./utils";
 import { getMappedURL } from "../../lib";
 import Title from "../../general/title/title";
 
+import * as errorMessages from "../../general/utils/error_messages";
+
 function ReDirectPage() {
   const [url, setUrl] = useState("");
   const [text, setText] = useState("Redirecting...");
@@ -12,8 +14,8 @@ function ReDirectPage() {
   const isCancelled = useRef(false);
   const [cancelButtonText, setCancelButtonText] = useState("Cancel");
 
-  function handleError() {
-    alert("Something has gone wrong. Please try again later.");
+  function handleClientError() {
+    errorMessages.displayClientErrorMessage();
     handleInvalidUrl();
   }
 
@@ -47,7 +49,7 @@ function ReDirectPage() {
   }
 
   function handleServerError() {
-    alert("Server is facing difficulties. Please try again later.");
+    errorMessages.displayServerErrorMessage();
     handleInvalidUrl();
   }
   function handleUnSafeUrl(unSafeUrlData) {
@@ -65,7 +67,7 @@ function ReDirectPage() {
         key: getPath(),
       });
       if (data.error) {
-        handleError();
+        handleClientError();
       } else {
         if (data.data.serverError) {
           handleServerError();

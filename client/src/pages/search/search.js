@@ -6,6 +6,8 @@ import SearchResult from "./components/search-result/search-result";
 import { getSearchResult, getSuggestions } from "../../lib";
 import CircularSpinner from "../../general/circular-spinner/circular-spinner";
 
+import * as errorMessages from "../../general/utils/error_messages";
+
 function SearchPage() {
   const [searchItem, setSearchItem] = useState("");
   const [searching, setSearching] = useState(false);
@@ -72,25 +74,28 @@ function SearchPage() {
       query: e.target.value,
       field: field,
     });
-    setSuggestionList(suggestionData.data.suggestions);
-  }
-
-  function handleClientError() {
-    alert(
-      "Something went wrong. Please check your internet connection and try again."
+    setSuggestionList(
+      suggestionData.data.suggestions === undefined ||
+        suggestionData.data.suggestions === null
+        ? []
+        : suggestionData.data.suggestions
     );
   }
 
+  function handleClientError() {
+    errorMessages.displayClientErrorMessage();
+  }
+
   function handleServerError() {
-    alert("Something went wrong on our end. Please try again later.");
+    errorMessages.displayServerErrorMessage();
   }
 
   function handleNotAuthorized() {
-    alert("You are not logged in. Try clearing the cookies and login again.");
+    errorMessages.displayNotAuthorizedMessage();
   }
 
   function handleUserNotExists() {
-    alert("You are not logged in. Try clearing the cookies and login again.");
+    errorMessages.displayNotAuthorizedMessage();
   }
 
   async function handleSearch(searchText) {
