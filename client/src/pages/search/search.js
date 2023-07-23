@@ -70,6 +70,7 @@ function SearchPage() {
   async function handleSearchTextChange(e) {
     setSearchItem(e.target.value);
     setShowSearchSuggestion(true);
+    if (e.target.value.replaceAll(" ", "") === "") return;
     let suggestionData = await getSuggestions({
       query: e.target.value,
       field: field,
