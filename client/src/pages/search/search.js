@@ -104,21 +104,22 @@ function SearchPage() {
     setSearchItem(searchText);
     setShowSearchSuggestion(false);
     setSearching(true);
-    if (searchText.replaceAll(" ", "") === "") return;
-    let searchResultData = await getSearchResult({
-      query: searchText,
-      field: field,
-    });
-    if (searchResultData.error) {
-      handleClientError();
-    } else if (searchResultData.data.serverError) {
-      handleServerError();
-    } else if (searchResultData.data.userNotExists) {
-      handleUserNotExists();
-    } else if (searchResultData.data.notAuthorized) {
-      handleNotAuthorized();
-    } else {
-      setSearchResults(searchResultData.data.suggestions);
+    if (searchText.replaceAll(" ", "") !== "") {
+      let searchResultData = await getSearchResult({
+        query: searchText,
+        field: field,
+      });
+      if (searchResultData.error) {
+        handleClientError();
+      } else if (searchResultData.data.serverError) {
+        handleServerError();
+      } else if (searchResultData.data.userNotExists) {
+        handleUserNotExists();
+      } else if (searchResultData.data.notAuthorized) {
+        handleNotAuthorized();
+      } else {
+        setSearchResults(searchResultData.data.suggestions);
+      }
     }
     setSearching(false);
   }
