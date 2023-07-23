@@ -120,8 +120,12 @@ function SearchPage() {
       } else {
         setSearchResults(searchResultData.data.suggestions);
       }
+      setSearching(false);
+    } else {
+      setTimeout(() => {
+        setSearching(false);
+      }, 500);
     }
-    setSearching(false);
   }
 
   return (
