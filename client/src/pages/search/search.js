@@ -103,6 +103,7 @@ function SearchPage() {
     setSearchItem(searchText);
     setShowSearchSuggestion(false);
     setSearching(true);
+    if (searchText.replaceAll(" ", "") === "") return;
     let searchResultData = await getSearchResult({
       query: searchText,
       field: field,
