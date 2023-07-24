@@ -187,6 +187,7 @@ function SearchPage() {
               id="url-input"
               className="search__url-input"
               type="text"
+              maxLength={40}
               placeholder="Search URL..."
               value={searchItem}
               onChange={(e) => {

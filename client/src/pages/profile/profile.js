@@ -238,8 +238,10 @@ function ProfilePage() {
                           1 lower case and no special characters"
                         required
                       />
+                    </div>
+                    <div className="delete-password__input-container">
                       <label htmlFor="delete-account-text">
-                        Enter the text "delete my account":
+                        Enter "delete my account":
                       </label>
                       <input
                         id="delete-account-text"
@@ -252,10 +254,10 @@ function ProfilePage() {
                       />
                     </div>
                     <div className="delete-account__helper-buttons">
-                      <div className="delete-account__button-container">
+                      <div className="delete-account__helper-button-container">
                         <button type="submit">Confirm Deletion</button>
                       </div>
-                      <div className="delete-account__button-container">
+                      <div className="delete-account__helper-button-container">
                         <button
                           className="cancel-button"
                           type="button"

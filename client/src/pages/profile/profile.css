@@ -80,6 +80,7 @@
 
   background-color: #08a108;
   cursor: pointer;
+  transition: 0.4s ease-in-out;
 }
 
 .user-details__show-password-button:hover {
@@ -145,7 +146,6 @@
 }
 
 .delete-account__button-container {
-  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -173,17 +173,38 @@
   background-color: red;
 }
 
-.delete-account__button-container .cancel-button {
+.delete-account__helper-button-container button {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  width: 100px;
+  height: 40px;
+  padding: 0px;
+  line-height: 40px;
+  border: none;
+  border-radius: 3px;
+
+  background-color: #b71c1c;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+
+.delete-account__helper-button-container button:hover {
+  background-color: red;
+}
+
+.delete-account__helper-button-container .cancel-button {
   background-color: #08a108;
 }
 
-.delete-account__button-container .cancel-button:hover {
+.delete-account__helper-button-container .cancel-button:hover {
   background-color: #00ff15;
 }
 
-.delete-account__button-container {
+.delete-account__helper-button-container {
   display: flex;
-  flex-direction: row;
 }
 
 .delete-account__form-container {
@@ -195,16 +216,20 @@
 }
 
 .delete-password__input-container {
-  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 10px;
 }
 
 .delete-account__helper-buttons {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
-
-  margin: 10px;
+  justify-content: first baseline;
+  gap: 20px;
+  margin-top: 10px;
 }
 
 @media screen and (max-width: 600px) {
