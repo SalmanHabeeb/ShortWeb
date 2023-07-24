@@ -81,10 +81,10 @@ function SearchPage() {
     let suggestions = undefined;
     if (
       e.target.value &&
-      sessionStorage.getItem("suggestions:" + e.target.value)
+      sessionStorage.getItem("suggestions:" + field + e.target.value)
     ) {
       const storedJsonString = sessionStorage.getItem(
-        "suggestions:" + e.target.value
+        "suggestions:" + field + e.target.value
       );
 
       // Check if the key exists and the value is not null
@@ -100,7 +100,10 @@ function SearchPage() {
       suggestions = suggestionData.data.suggestions;
       if (suggestions) {
         let jsonString = JSON.stringify(suggestions);
-        sessionStorage.setItem("suggestions:" + e.target.value, jsonString);
+        sessionStorage.setItem(
+          "suggestions:" + field + e.target.value,
+          jsonString
+        );
       }
     }
     setSuggestionList(
@@ -136,9 +139,9 @@ function SearchPage() {
         searchText.length < 3
       )
     ) {
-      if (sessionStorage.getItem("searchResults:" + searchText)) {
+      if (sessionStorage.getItem("searchResults:" + field + searchText)) {
         const storedJsonString = sessionStorage.getItem(
-          "searchResults:" + searchText
+          "searchResults:" + field + searchText
         );
 
         // Check if the key exists and the value is not null
@@ -163,7 +166,10 @@ function SearchPage() {
         } else {
           if (searchResultData.data.suggestions) {
             let jsonString = JSON.stringify(searchResultData.data.suggestions);
-            sessionStorage.setItem("searchResults:" + searchText, jsonString);
+            sessionStorage.setItem(
+              "searchResults:" + field + searchText,
+              jsonString
+            );
           }
           console.debug(searchResultData.data.suggestions);
           setSearchResults(searchResultData.data.suggestions);
