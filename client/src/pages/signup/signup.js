@@ -38,6 +38,7 @@ function SignUpPage() {
   }
   async function handleSignUp(e) {
     e.preventDefault();
+    e.target.signupButton.disabled = true;
     let email = e.target.email.value;
     let password = e.target.password.value;
     setSigningIn(true);
@@ -71,6 +72,7 @@ function SignUpPage() {
       homeLink.click();
     }
     setSigningIn(false);
+    e.target.signupButton.disabled = false;
   }
 
   useEffect(() => {
@@ -117,7 +119,7 @@ function SignUpPage() {
             />
           </div>
           <div className="signup-button-container">
-            <button className="signup-button" type="submit">
+            <button className="signup-button" name="signupButton" type="submit">
               {signingIn ? (
                 <CircularSpinner
                   size="20px"

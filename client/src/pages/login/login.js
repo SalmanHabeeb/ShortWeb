@@ -41,7 +41,7 @@ function LoginPage() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-
+    e.target.loginButton.disabled = true;
     let email = e.target.email.value;
     let password = e.target.password.value;
     setLoggingIn(true);
@@ -76,6 +76,7 @@ function LoginPage() {
       homeLink.click();
     }
     setLoggingIn(false);
+    e.target.loginButton.disabled = false;
   }
 
   useEffect(() => {
@@ -125,7 +126,7 @@ function LoginPage() {
             />
           </div>
           <div className="login-button-container">
-            <button className="login-button" type="submit">
+            <button className="login-button" name="loginButton" type="submit">
               {loggingIn ? (
                 <CircularSpinner
                   size="20px"

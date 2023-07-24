@@ -68,6 +68,8 @@ function ProfilePage() {
   async function handleChangePassword(e) {
     // Prevent the default form submission behavior
     e.preventDefault();
+    e.target.proceedButton.disabled = true;
+
     console.log(oldPassword, newPassword);
     let data = await updatePassword({
       oldPassword: oldPassword,
@@ -96,11 +98,13 @@ function ProfilePage() {
       setShowEditPassword(false);
       alert("Your password is successfully changed.");
     }
+    e.target.proceedButton.disabled = false;
   }
 
   const handleDeleteProfile = async (e) => {
     // Prevent the default form submission behavior
     e.preventDefault();
+    e.target.confirmDeletion.disabled = true;
     let data = await deleteSelf({
       password: deletePassword,
     });
@@ -127,6 +131,7 @@ function ProfilePage() {
       homeLink.href = "/landingPage";
       homeLink.click();
     }
+    e.target.confirmDeletion.disabled = false;
   };
 
   return (
@@ -192,7 +197,11 @@ function ProfilePage() {
                         />
                       </div>
                       <div className="edit-password-helper-buttons">
-                        <button className="proceed-button" type="submit">
+                        <button
+                          className="proceed-button"
+                          name="proceedButton"
+                          type="submit"
+                        >
                           Change Password
                         </button>
                         <button
@@ -255,7 +264,9 @@ function ProfilePage() {
                     </div>
                     <div className="delete-account__helper-buttons">
                       <div className="delete-account__helper-button-container">
-                        <button type="submit">Confirm Deletion</button>
+                        <button name="confirmDeletion" type="submit">
+                          Confirm Deletion
+                        </button>
                       </div>
                       <div className="delete-account__helper-button-container">
                         <button
