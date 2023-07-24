@@ -70,16 +70,41 @@ function SearchPage() {
   async function handleSearchTextChange(e) {
     setSearchItem(e.target.value);
     setShowSearchSuggestion(true);
-    if (e.target.value.replaceAll(" ", "") === "") return;
-    let suggestionData = await getSuggestions({
-      query: e.target.value,
-      field: field,
-    });
+    if (
+      !e.target.value ||
+      e.target.value.replaceAll(" ", "") === "" ||
+      e.target.value.length < 3
+    ) {
+      setShowSearchSuggestion(false);
+      return;
+    }
+    let suggestions = undefined;
+    if (
+      e.target.value &&
+      sessionStorage.getItem("suggestions:" + e.target.value)
+    ) {
+      const storedJsonString = sessionStorage.getItem(
+        "suggestions:" + e.target.value
+      );
+
+      // Check if the key exists and the value is not null
+      if (storedJsonString) {
+        // Convert the JSON string back to a JavaScript array
+        suggestions = JSON.parse(storedJsonString);
+      }
+    } else if (e.target.value) {
+      let suggestionData = await getSuggestions({
+        query: e.target.value,
+        field: field,
+      });
+      suggestions = suggestionData.data.suggestions;
+      if (suggestions) {
+        let jsonString = JSON.stringify(suggestions);
+        sessionStorage.setItem("suggestions:" + e.target.value, jsonString);
+      }
+    }
     setSuggestionList(
-      suggestionData.data.suggestions === undefined ||
-        suggestionData.data.suggestions === null
-        ? []
-        : suggestionData.data.suggestions
+      suggestions === undefined || suggestions === null ? [] : suggestions
     );
   }
 
@@ -104,21 +129,45 @@ function SearchPage() {
     setSearchItem(searchText);
     setShowSearchSuggestion(false);
     setSearching(true);
-    if (searchText.replaceAll(" ", "") !== "") {
-      let searchResultData = await getSearchResult({
-        query: searchText,
-        field: field,
-      });
-      if (searchResultData.error) {
-        handleClientError();
-      } else if (searchResultData.data.serverError) {
-        handleServerError();
-      } else if (searchResultData.data.userNotExists) {
-        handleUserNotExists();
-      } else if (searchResultData.data.notAuthorized) {
-        handleNotAuthorized();
+    if (
+      !(
+        !searchText ||
+        searchText.replaceAll(" ", "") === "" ||
+        searchText.length < 3
+      )
+    ) {
+      if (sessionStorage.getItem("searchResults:" + searchText)) {
+        const storedJsonString = sessionStorage.getItem(
+          "searchResults:" + searchText
+        );
+
+        // Check if the key exists and the value is not null
+        if (storedJsonString) {
+          // Convert the JSON string back to a JavaScript array
+          let suggestions = JSON.parse(storedJsonString);
+          setSearchResults(suggestions);
+        }
       } else {
-        setSearchResults(searchResultData.data.suggestions);
+        let searchResultData = await getSearchResult({
+          query: searchText,
+          field: field,
+        });
+        if (searchResultData.error) {
+          handleClientError();
+        } else if (searchResultData.data.serverError) {
+          handleServerError();
+        } else if (searchResultData.data.userNotExists) {
+          handleUserNotExists();
+        } else if (searchResultData.data.notAuthorized) {
+          handleNotAuthorized();
+        } else {
+          if (searchResultData.data.suggestions) {
+            let jsonString = JSON.stringify(searchResultData.data.suggestions);
+            sessionStorage.setItem("searchResults:" + searchText, jsonString);
+          }
+          console.debug(searchResultData.data.suggestions);
+          setSearchResults(searchResultData.data.suggestions);
+        }
       }
       setSearching(false);
     } else {
