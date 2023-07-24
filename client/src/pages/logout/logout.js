@@ -29,7 +29,8 @@ function LogOutPage() {
     } else if (data.data.serverError) {
       handleServerError();
     } else {
-      sessionStorage.removeItem("isLoggedIn");
+      sessionStorage.clear();
+      localStorage.clear();
       Cookies.remove("token");
       Cookies.remove("isLoggedIn");
       let logoutLink = document.createElement("a");
