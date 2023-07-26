@@ -16,10 +16,11 @@ function HomePage() {
 
   const [isSqueezing, setIsSqueezing] = useState(false);
   const [savingNotes, setSavingNotes] = useState(false);
-  const [madeEdit, setMadeEdit] = useState(false);
+  const [madeEditNotes, setMadeEditNotes] = useState(false);
   const timeoutId = useRef(null);
   const [notes, setNotes] = useState("");
   const [editMode, setEditMode] = useState(false);
+  const [cache, setCache] = useState([]);
 
   useEffect(() => {
     return () => {
@@ -35,7 +36,7 @@ function HomePage() {
   }, []);
 
   useEffect(() => {
-    setMadeEdit(true);
+    setMadeEditNotes(true);
   }, [notes]);
 
   function handleCopyToClipboard(text) {
@@ -67,7 +68,11 @@ function HomePage() {
     errorMessages.displayInvalidURLMessage();
   }
 
-  function handleValidResponse(data) {
+  function handleValidResponse(data, cacheMatch) {
+    if (!cacheMatch) {
+      let newCache = { url: url, data: data };
+      setCache([...cache, newCache]);
+    }
     urlContainer.current = true;
     setLongUrl(url);
     setShortUrl(data.shortUrl);
@@ -77,9 +82,24 @@ function HomePage() {
   async function handleSubmit(e) {
     e.preventDefault();
     setIsSqueezing(true);
-    let response = await getShortenedURL({
-      url: url,
-    });
+    let response;
+    let match = false;
+    for (let index in cache) {
+      let element = cache[index];
+      if (element.url === url) {
+        match = true;
+        response = { data: element.data };
+        const sleep = (delay) =>
+          new Promise((resolve) => setTimeout(resolve, delay));
+        await sleep(1000);
+        break;
+      }
+    }
+    if (!match) {
+      response = await getShortenedURL({
+        url: url,
+      });
+    }
     if (response.error) {
       handleClientError();
     } else if (!response.data.shortUrl) {
@@ -89,7 +109,7 @@ function HomePage() {
         handleInValidResponse();
       }
     } else {
-      handleValidResponse(response.data);
+      handleValidResponse(response.data, match);
     }
     setIsSqueezing(false);
   }
@@ -118,8 +138,8 @@ function HomePage() {
 
   async function handleClickSaveNotes() {
     setSavingNotes(true);
-    if (madeEdit) {
-      setMadeEdit(false);
+    if (madeEditNotes) {
+      setMadeEditNotes(false);
       let data = await postNotes({
         shortUrl: shortUrl,
         notes: notes,
@@ -206,7 +226,7 @@ function HomePage() {
                     rel="noopener noreferrer nofollow"
                     role="link"
                   >
-                    {shortUrl}
+                    {shortUrl.split("/").slice(-1)}
                   </a>
                 </div>
                 <div className="copy-button-holder">

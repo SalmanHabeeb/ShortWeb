@@ -101,6 +101,18 @@ function ProfilePage() {
     e.target.proceedButton.disabled = false;
   }
 
+  const handleCancelEditPassword = () => {
+    setShowEditPassword(false);
+    setOldPassword("");
+    setNewPassword("");
+  };
+
+  const handleCancelDeleteAccount = () => {
+    setShowDeleteProfile(false);
+    setDeletePassword("");
+    setDeleteAccountText("");
+  };
+
   const handleDeleteProfile = async (e) => {
     // Prevent the default form submission behavior
     e.preventDefault();
@@ -127,6 +139,8 @@ function ProfilePage() {
       sessionStorage.removeItem("isLoggedIn");
       Cookies.remove("token");
       Cookies.remove("isLoggedIn");
+      sessionStorage.clear();
+      localStorage.clear();
       let homeLink = document.createElement("a");
       homeLink.href = "/landingPage";
       homeLink.click();
@@ -207,7 +221,7 @@ function ProfilePage() {
                         <button
                           className="cancel-button"
                           type="button"
-                          onClick={() => setShowEditPassword(false)}
+                          onClick={() => handleCancelEditPassword()}
                         >
                           Cancel
                         </button>
@@ -272,7 +286,7 @@ function ProfilePage() {
                         <button
                           className="cancel-button"
                           type="button"
-                          onClick={() => setShowDeleteProfile(false)}
+                          onClick={() => handleCancelDeleteAccount()}
                         >
                           Cancel
                         </button>

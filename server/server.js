@@ -77,28 +77,47 @@ app.get("/api", async (req, res) => {
 });
 
 app.get("/api/short/create", async (req, res) => {
-  let user = null;
-  let token = getTokenFromRequest(req);
-  if (token) {
-    user = await User.findByToken(token);
+  try {
+    let url2Short = utils.requests.getURL2Short(req);
+    if (utils.validateUrls.isValidURL(url2Short) === false) {
+      return res.send(utils.response.getShortenedURLData("", false));
+    }
+    let user = null;
+    let token = getTokenFromRequest(req);
+    if (token) {
+      user = await User.findByToken(token);
+    }
+    if (user === null) {
+      user = "Anonymous";
+    } else {
+      user = user.email;
+      const urlData = await urlDatabase.findOne({
+        full: url2Short,
+        user: user,
+      });
+      if (urlData) {
+        let shortUrl = utils.shortUrls.createURL(
+          allowedDomains.client,
+          urlData.short
+        );
+        return res.send(utils.response.getShortenedURLData(shortUrl));
+      }
+    }
+    let shortUrlPath = await utils.shortUrls.getUniqueShortPath(urlDatabase);
+    await urlDatabase.create({
+      full: url2Short,
+      short: shortUrlPath,
+      user: user,
+    });
+    let shortUrl = utils.shortUrls.createURL(
+      allowedDomains.client,
+      shortUrlPath
+    );
+    res.send(utils.response.getShortenedURLData(shortUrl));
+  } catch (error) {
+    console.error(error);
+    return res.json({ serverError: true });
   }
-  if (user === null) {
-    user = "Anonymous";
-  } else {
-    user = user.email;
-  }
-  let url2Short = utils.requests.getURL2Short(req);
-  if (utils.validateUrls.isValidURL(url2Short) === false) {
-    return res.send(utils.response.getShortenedURLData("", false));
-  }
-  let shortUrlPath = await utils.shortUrls.getUniqueShortPath(urlDatabase);
-  await urlDatabase.create({
-    full: url2Short,
-    short: shortUrlPath,
-    user: user,
-  });
-  let shortUrl = utils.shortUrls.createURL(allowedDomains.client, shortUrlPath);
-  res.send(utils.response.getShortenedURLData(shortUrl));
 });
 
 app.get("/api/short", async (req, res) => {
@@ -114,7 +133,7 @@ app.get("/api/short", async (req, res) => {
     // console.log(req.query.address);
     let address = req.clientIp;
     const shortUrl = await urlDatabase.findOne({ short: req.query.key });
-    if (shortUrl == null) return res.send({ urlNotExists: true });
+    if (shortUrl === null) return res.send({ urlNotExists: true });
 
     let url = utils.validateUrls.ensureHTTPHeader(shortUrl.full);
     console.log(shortUrl.isSafe);

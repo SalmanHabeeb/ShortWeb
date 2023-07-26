@@ -25,7 +25,7 @@ function ReDirectPage() {
   }
 
   function handleRedirect(redirectUrl, isSafe = true) {
-    localStorage.setItem(getPath(), redirectUrl);
+    localStorage.setItem("short:" + getPath(), redirectUrl);
     redirectToURL(redirectUrl);
   }
 
@@ -61,7 +61,7 @@ function ReDirectPage() {
   }
 
   async function onWindowLoad() {
-    let data = localStorage.getItem(getPath());
+    let data = localStorage.getItem("short:" + getPath());
     if (!data) {
       data = await getMappedURL({
         key: getPath(),

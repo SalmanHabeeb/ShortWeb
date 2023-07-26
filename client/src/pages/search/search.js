@@ -233,6 +233,7 @@ function SearchPage() {
                         className={`${
                           showSearchSuggestion ? "search-suggestion" : "close"
                         }`}
+                        key={idx}
                         tabIndex={0}
                         onClick={() => handleSearch(item)}
                         onKeyDown={(e) => {
@@ -341,8 +342,8 @@ function SearchPage() {
           </label>
         </div>
         <div className="search-results-container">
-          {searchResults.map((result) => (
-            <SearchResult {...result} />
+          {searchResults.map((result, idx) => (
+            <SearchResult key={idx} {...result} />
           ))}
         </div>
       </div>

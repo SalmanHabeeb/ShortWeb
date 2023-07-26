@@ -70,20 +70,41 @@ function LandingPage() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    e.target.urlSubmitButton.disabled = true;
     setIsSqueezing(true);
-    let response = await getShortenedURL({ url: url });
-    if (response.error) {
-      handleClientError();
-    } else if (!response.data.shortUrl) {
-      if (response.data.serverError) {
-        handleServerError();
-      } else if (response.data.valid === false) {
-        handleInValidResponse();
+    let match = false;
+    for (let index in urlObjects) {
+      let element = urlObjects[index];
+      if (url === element.url) {
+        const sleep = (delay) =>
+          new Promise((resolve) => setTimeout(resolve, delay));
+        await sleep(1000);
+        setUrlObjects((prev) => [
+          ...prev.filter((item) => {
+            return item.url !== element.url;
+          }),
+        ]);
+        setUrlObjects((prev) => [...prev, element]);
+        match = true;
+        break;
       }
-    } else {
-      handleValidResponse(response.data);
+    }
+    if (!match) {
+      let response = await getShortenedURL({ url: url });
+      if (response.error) {
+        handleClientError();
+      } else if (!response.data.shortUrl) {
+        if (response.data.serverError) {
+          handleServerError();
+        } else if (response.data.valid === false) {
+          handleInValidResponse();
+        }
+      } else {
+        handleValidResponse(response.data);
+      }
     }
     setIsSqueezing(false);
+    e.target.urlSubmitButton.disabled = false;
   }
   return (
     <div id="LandingPage">
@@ -102,7 +123,11 @@ function LandingPage() {
           autoComplete="off"
           required
         />
-        <button className="landing-page__submit-button" type="submit">
+        <button
+          className="landing-page__submit-button"
+          name="urlSubmitButton"
+          type="submit"
+        >
           {isSqueezing ? (
             <CircularSpinner
               size="20px"
@@ -124,13 +149,13 @@ function LandingPage() {
         ) : null}
         {urlContainer.current &&
           [...urlObjects].reverse().map((item, idx) => (
-            <div className="data-url" key={item.shortened}>
+            <div className="data-url" key={idx}>
               <div className="long-url">
                 <a href={item.url}>{item.url}</a>
               </div>
               <div className="short-url">
                 <a href={item.shortened} target="_blank" rel="noreferrer">
-                  {item.shortened}
+                  {item.shortened.split("/").slice(-1)}
                 </a>
               </div>
               <div className="copy-button-holder">
