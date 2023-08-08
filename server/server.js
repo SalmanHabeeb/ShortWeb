@@ -525,6 +525,8 @@ app.get("/api/search/suggestions", async (req, res) => {
       ]);
     } catch (error) {
       console.error(error);
+      console.log(user.email, field, query);
+      const queryRegex = new RegExp(query, "i");
       suggestionData = await urlDatabase.aggregate([
         {
           $match: {
@@ -532,17 +534,14 @@ app.get("/api/search/suggestions", async (req, res) => {
           },
         },
         {
-          $sort: { createdAt: -1 },
-        },
-        {
           $match: {
-            field: query,
+            [field]: {
+              $regex: queryRegex,
+            },
           },
         },
-        {
-          $limit: 3,
-        },
       ]);
+      console.log(suggestionData);
     }
 
     console.debug(query, suggestionData);
