@@ -458,6 +458,8 @@ app.get("/api/search/results", async (req, res) => {
       ]);
     } catch (error) {
       console.error(error);
+      // If $search is not available use $match with $regex
+      const queryRegex = new RegExp(query, "i");
       suggestionData = await urlDatabase.aggregate([
         {
           $match: {
@@ -465,12 +467,19 @@ app.get("/api/search/results", async (req, res) => {
           },
         },
         {
-          $sort: { createdAt: -1 },
+          $match: {
+            [field]: {
+              $regex: queryRegex,
+            },
+          },
         },
         {
-          $match: {
-            field: query,
+          $sort: {
+            createdAt: -1,
           },
+        },
+        {
+          $limit: 10,
         },
       ]);
     }
@@ -525,7 +534,7 @@ app.get("/api/search/suggestions", async (req, res) => {
       ]);
     } catch (error) {
       console.error(error);
-      console.log(user.email, field, query);
+      // If $search is not available use $match with $regex
       const queryRegex = new RegExp(query, "i");
       suggestionData = await urlDatabase.aggregate([
         {
@@ -539,6 +548,14 @@ app.get("/api/search/suggestions", async (req, res) => {
               $regex: queryRegex,
             },
           },
+        },
+        {
+          $sort: {
+            createdAt: -1,
+          },
+        },
+        {
+          $limit: 3,
         },
       ]);
       console.log(suggestionData);
