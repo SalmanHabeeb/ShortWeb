@@ -5,14 +5,14 @@ export async function isLoggedIn() {
   // Check if the sessionStorage has the key isLoggedIn
   if (sessionStorage.getItem("isLoggedIn") === "true") {
     // If yes, return true
-    if (Cookies.get("isLoggedIn")) {
+    if (Cookies.get("token")) {
       return true;
     } else {
       sessionStorage.removeItem("isLoggedIn");
       return false;
     }
   } else {
-    if (Cookies.get("isLoggedIn")) {
+    if (Cookies.get("token")) {
       // If not, use verifyLogin() to check if the user is logged in
       const result = await verifyLogin({});
       console.log(result);
