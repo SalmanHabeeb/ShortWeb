@@ -14,6 +14,7 @@ function SearchPage() {
   const [suggestionList, setSuggestionList] = useState([]);
   const [showSearchSuggestion, setShowSearchSuggestion] = useState(false);
   const [field, setField] = useState("full");
+  const [cache, setCache] = useState({});
 
   const suggestBoxRef = useRef(null);
   const [suggestFocus, setSuggestFocus] = useState(null);
@@ -79,13 +80,8 @@ function SearchPage() {
       return;
     }
     let suggestions = undefined;
-    if (
-      e.target.value &&
-      sessionStorage.getItem("suggestions:" + field + e.target.value)
-    ) {
-      const storedJsonString = sessionStorage.getItem(
-        "suggestions:" + field + e.target.value
-      );
+    if (e.target.value && cache["suggestions:" + field + e.target.value]) {
+      const storedJsonString = cache["suggestions:" + field + e.target.value];
 
       // Check if the key exists and the value is not null
       if (storedJsonString) {
@@ -100,10 +96,10 @@ function SearchPage() {
       suggestions = suggestionData.data.suggestions;
       if (suggestions) {
         let jsonString = JSON.stringify(suggestions);
-        sessionStorage.setItem(
-          "suggestions:" + field + e.target.value,
-          jsonString
-        );
+        const updatedCache = { ...cache };
+        // Update the copy with the new key-value pair
+        updatedCache["suggestions:" + field + e.target.value] = jsonString;
+        setCache(updatedCache);
       }
     }
     setSuggestionList(
@@ -139,11 +135,11 @@ function SearchPage() {
         searchText.length < 3
       )
     ) {
-      if (sessionStorage.getItem("searchResults:" + field + searchText)) {
-        const storedJsonString = sessionStorage.getItem(
-          "searchResults:" + field + searchText
-        );
-
+      if (cache["searchResults:" + field + searchText]) {
+        const storedJsonString = cache["searchResults:" + field + searchText];
+        const sleep = (delay) =>
+          new Promise((resolve) => setTimeout(resolve, delay));
+        await sleep(1000);
         // Check if the key exists and the value is not null
         if (storedJsonString) {
           // Convert the JSON string back to a JavaScript array
@@ -166,10 +162,9 @@ function SearchPage() {
         } else {
           if (searchResultData.data.suggestions) {
             let jsonString = JSON.stringify(searchResultData.data.suggestions);
-            sessionStorage.setItem(
-              "searchResults:" + field + searchText,
-              jsonString
-            );
+            let newCache = { ...cache };
+            newCache["searchResults:" + field + searchText] = jsonString;
+            setCache(newCache);
           }
           console.debug(searchResultData.data.suggestions);
           setSearchResults(searchResultData.data.suggestions);
