@@ -348,10 +348,12 @@ app.post("/api/login", async (req, res) => {
 
 app.get("/api/login/verify", async (req, res) => {
   let token = getTokenFromRequest(req);
+  console.error("LINE 351", token);
   if (!token) {
     return res.json({ loggedIn: false });
   }
   let user = await User.findByToken(token);
+  console.error("LINE 356", user);
   if (user === null) {
     res.clearCookie("token");
     res.clearCookie("isLoggedIn");
