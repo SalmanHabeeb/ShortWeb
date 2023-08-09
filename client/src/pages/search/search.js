@@ -123,6 +123,10 @@ function SearchPage() {
     errorMessages.displayNotAuthorizedMessage();
   }
 
+  const escapeRegExp = (string) => {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); // Escape special characters
+  };
+
   async function handleSearch(searchText) {
     setSuggestionList([]);
     setSearchItem(searchText);
@@ -207,13 +211,9 @@ function SearchPage() {
             <div className="search-suggestions" ref={suggestBoxRef}>
               {suggestionList !== []
                 ? suggestionList.map((item, idx) => {
+                    const escapedSearchItem = escapeRegExp(searchItem);
                     const parts = item.split(
-                      new RegExp(
-                        `(${searchItem
-                          .replaceAll("\\", "")
-                          .replaceAll("*", "")})`,
-                        "gi"
-                      )
+                      new RegExp(`(${escapedSearchItem})`, "gi")
                     );
                     let limit = 37;
                     if (window.matchMedia("(max-width: 600px)").matches) {

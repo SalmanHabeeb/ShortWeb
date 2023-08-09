@@ -193,6 +193,7 @@ function ProfilePage() {
                           title="Password must contain atleast 8 characters, atleast 1 digit, 1 uppercase,
                           1 lower case and no special characters"
                           required
+                          autoFocus
                         />
                       </div>
                       <div className="edit-password-container">
@@ -260,6 +261,7 @@ function ProfilePage() {
                         title="Password must contain atleast 8 characters, atleast 1 digit, 1 uppercase,
                           1 lower case and no special characters"
                         required
+                        autoFocus
                       />
                     </div>
                     <div className="delete-password__input-container">
