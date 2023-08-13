@@ -11,7 +11,9 @@ function ProfilePage() {
     email: "",
   });
   const [showEditPassword, setShowEditPassword] = useState(false);
+  const [editingPassword, setEditingPassword] = useState(false);
   const [showDeleteProfile, setShowDeleteProfile] = useState(false);
+  const [deletingProfile, setDeletingProfile] = useState(false);
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [deletePassword, setDeletePassword] = useState("");
@@ -69,6 +71,7 @@ function ProfilePage() {
     // Prevent the default form submission behavior
     e.preventDefault();
     e.target.proceedButton.disabled = true;
+    setEditingPassword(true);
 
     console.log(oldPassword, newPassword);
     let data = await updatePassword({
@@ -98,6 +101,7 @@ function ProfilePage() {
       setShowEditPassword(false);
       alert("Your password is successfully changed.");
     }
+    setEditingPassword(false);
     e.target.proceedButton.disabled = false;
   }
 
@@ -117,6 +121,7 @@ function ProfilePage() {
     // Prevent the default form submission behavior
     e.preventDefault();
     e.target.confirmDeletion.disabled = true;
+    setDeletingProfile(true);
     let data = await deleteSelf({
       password: deletePassword,
     });
@@ -145,6 +150,7 @@ function ProfilePage() {
       homeLink.href = "/landingPage";
       homeLink.click();
     }
+    setDeletingProfile(false);
     e.target.confirmDeletion.disabled = false;
   };
 
@@ -217,7 +223,16 @@ function ProfilePage() {
                           name="proceedButton"
                           type="submit"
                         >
-                          Change Password
+                          {editingPassword ? (
+                            <CircularSpinner
+                              size="20px"
+                              thickness="3px"
+                              color="blue"
+                              bgColor="#00ff00"
+                            />
+                          ) : (
+                            "Change Password"
+                          )}
                         </button>
                         <button
                           className="cancel-button"
@@ -281,7 +296,16 @@ function ProfilePage() {
                     <div className="delete-account__helper-buttons">
                       <div className="delete-account__helper-button-container">
                         <button name="confirmDeletion" type="submit">
-                          Confirm Deletion
+                          {deletingProfile ? (
+                            <CircularSpinner
+                              size="20px"
+                              thickness="3px"
+                              color="blue"
+                              bgColor="pink"
+                            />
+                          ) : (
+                            "Confirm Deletion"
+                          )}
                         </button>
                       </div>
                       <div className="delete-account__helper-button-container">
