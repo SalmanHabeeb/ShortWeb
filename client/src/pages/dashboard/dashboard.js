@@ -7,9 +7,22 @@ import NavBar from "../../general/navbar/navbar";
 import { getUrlData } from "../../lib";
 
 function DashBoard() {
-  const socket = socketIO.connect("http://localhost:5000", {
-    transports: ["websocket"],
-  });
+  const isLocalHost = Boolean(
+    window.location.hostname === "localhost" ||
+      window.location.hostname === "[::1]" ||
+      window.location.hostname.match(
+        /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/ //@EXAMPLE: hostname=192.168.1.4:3000
+      )
+  );
+
+  const socket = socketIO.connect(
+    isLocalHost
+      ? process.env.REACT_APP_LOCAL_SERVER_API
+      : process.env.REACT_APP_REMOTE_SERVER_API,
+    {
+      transports: ["websocket"],
+    }
+  );
   socket.on("disconnect", (err) => console.log(err));
   socket.on("connect_error", (err) => console.error(err));
   socket.on("connect_failed", (err) => console.error(err));
