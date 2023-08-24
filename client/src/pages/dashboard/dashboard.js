@@ -20,6 +20,7 @@ function DashBoard() {
       ? process.env.REACT_APP_LOCAL_SERVER_API
       : process.env.REACT_APP_REMOTE_SERVER_API,
     {
+      path: "/",
       transports: ["websocket"],
     }
   );
