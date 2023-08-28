@@ -14,13 +14,13 @@ function DashBoard() {
         /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/ //@EXAMPLE: hostname=192.168.1.4:3000
       )
   );
+  console.log(process.env.REACT_APP_LOCAL_SERVER_API.slice(0, -4));
 
   const socket = socketIO.connect(
     isLocalHost
-      ? process.env.REACT_APP_LOCAL_SERVER_API
-      : process.env.REACT_APP_REMOTE_SERVER_API,
+      ? process.env.REACT_APP_LOCAL_SERVER_API.slice(0, -4)
+      : process.env.REACT_APP_REMOTE_SERVER_API.slice(0, -4),
     {
-      path: "/",
       transports: ["websocket"],
     }
   );
