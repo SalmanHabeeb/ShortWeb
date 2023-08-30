@@ -28,6 +28,15 @@ function DashBoard() {
   socket.on("connect_failed", (err) => console.error(err));
   const [count, setCount] = useState(0);
   let path = window.location.pathname.slice(1);
+
+  useEffect(() => {
+    socket.emit("getData", path);
+    socket.on("data", (data) => {
+      setCount(data.clicks);
+      console.log(data);
+    });
+  }, []);
+
   useEffect(() => {
     const interval = setInterval(() => {
       socket.emit("getData", path);
